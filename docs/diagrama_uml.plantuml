@@ -1,0 +1,42 @@
+@startuml TESTE
+
+class FeedProducer {
+    +produce_feeds()
+}
+
+class RabbitMQClient {
+    +declare_queue(name)
+    +publish(queue, message)
+    +consume(queue, callback)
+    +ack(delivery_tag)
+}
+
+class RssScraperWorker {
+    -client: RabbitMQClient
+    +start()
+    +callback()
+}
+
+class DbLoaderWorker {
+    -client: RabbitMQClient
+    -repo: NewsRepositoryMongo
+    +start()
+    +callback()
+}
+
+class NewsDownloader {
+    +fetch_html()
+    +parse_content()
+    +save_to_word(filename)
+}
+
+class NewsRepositoryMongo {
+    +insert(item)
+}
+
+RabbitMQClient <|-- RssScraperWorker
+RabbitMQClient <|-- DbLoaderWorker
+NewsRepositoryMongo <|-- DbLoaderWorker
+NewsDownloader <-- DbLoaderWorker
+
+@enduml
