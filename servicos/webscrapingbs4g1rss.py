@@ -69,7 +69,10 @@ class WebScrapingBs4G1Rss(WebScrapingBs4base):
                 else ""
 
             descricao_html = noticia.find('description')
-            descricao_noticia = self._limpar_descricao(descricao_html.text) \
+            descricao_noticia = self._tratamento.limpar_descricao(
+                descricao_html=descricao_html.text,
+                parser_html=self.__parser_html
+            ) \
                 if descricao_html \
                 else ""
 

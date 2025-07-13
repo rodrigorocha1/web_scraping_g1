@@ -1,9 +1,10 @@
 from typing import Generator
-from abc import abstractmethod, ABC
+from abc import abstractmethod
 import requests
 from models.noticia import Noticia
-from servicos.iwebscrapingbase import IWebScapingBase, T
+from servicos.iwebscrapingbase import IWebScapingBase
 from bs4 import BeautifulSoup
+from tratamento.tratamento import Tratamento
 
 
 class WebScrapingBs4base(IWebScapingBase[BeautifulSoup]):
@@ -14,8 +15,9 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup]):
         Args:
             url (str): url do site rss
         """
-        self.__parse = parse
-        self.__url = url
+        self._parse = parse
+        self._url = url
+        self._tratamento = Tratamento()
 
     def abrir_conexao(self) -> BeautifulSoup:
         """
@@ -24,13 +26,13 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup]):
             soup: objeto soup da página em xml
 
         """
-        response = requests.get(url=self.__url)
-        conteudo_xml = response.content
-        soup = BeautifulSoup(conteudo_xml, self.__parse)
+        response = requests.get(url=self._url)
+        conteudo_response = response.content
+        soup = BeautifulSoup(conteudo_response, self._parse)
         return soup
 
     @abstractmethod
-    def obter_dados(self, dados: T) -> Generator[Noticia, None, None]:
+    def obter_dados(self, dados: BeautifulSoup) -> Generator[Noticia, None, None]:
         """
           Obtém dados processados a partir da entrada fornecida.
 
