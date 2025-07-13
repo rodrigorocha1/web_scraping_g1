@@ -21,12 +21,12 @@ class WebScrapingPipeline(Generic[T]):
     def rodar_web_scraping(self):
         dados = self._servico_web_scraping_rss.abrir_conexao()
         for noticia in self._servico_web_scraping_rss.obter_dados(dados=dados):
-            print('noticia')
+
             print(noticia)
             self._servico_web_scraping_g1.url = noticia.url
             dados_notica_g1 = self._servico_web_scraping_g1.abrir_conexao()
             for noticia_site in self._servico_web_scraping_g1.obter_dados(dados=dados_notica_g1):
-                print(noticia_site.__dict__)
+                print(noticia_site)
             print('=' * 20)
 
 

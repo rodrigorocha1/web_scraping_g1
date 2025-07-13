@@ -54,9 +54,9 @@ class WebScrapingG1(WebScrapingBs4base):
 
 
 if __name__ == '__main__':
-    url = 'https://g1.globo.com/sp/ribeirao-preto-franca/noticia/2025/07/01/homem-morre-atropelado-na-rodovia-abrao-assed-em-serrana-sp.ghtml'
+    from servicos.iwebscrapingbase import IWebScapingBase
 
-    wsteste = WebScrapingG1(url=url, parse='html.parser')
-    dados = wsteste.abrir_conexao()
-    for noticia in wsteste.obter_dados(dados=dados):
-        print(noticia)
+    if issubclass(WebScrapingG1, IWebScapingBase):
+        print('sim')
+    else:
+        print('Não')
