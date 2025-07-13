@@ -39,7 +39,7 @@ class WebScrapingG1(WebScrapingBs4base):
             data_publicacao=data_publicacao,
             url_imagem=None,
             subtitulo=sub_titulo,
-            texto_noticia=texto_noticia,
+            texto_noticia=self._tratamento.limpar_descricao(texto_noticia),
             autor=autor
         )
         yield noticia
