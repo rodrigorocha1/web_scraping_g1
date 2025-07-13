@@ -35,7 +35,10 @@ if __name__ == '__main__':
         servico_web_scraping_rss=WebScrapingBs4G1Rss(
             url='https://g1.globo.com/rss/g1/sp/ribeirao-preto-franca'
         ),
-        servico_web_scraping_g1=WebScrapingG1(url=None, parse='html.parser')
+        servico_web_scraping_g1=WebScrapingG1(
+            url=None,
+            parse='html.parser'
+        )
 
     )
 
