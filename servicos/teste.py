@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 import requests
 import re
 from datetime import datetime
+from models.noticia import Noticia
+import sys
 
 url = 'https://g1.globo.com/rss/g1/sp/ribeirao-preto-franca'
 
@@ -21,7 +23,7 @@ def abrir_conexao():
     conteudo_xml = respose.content
 
     soup = BeautifulSoup(conteudo_xml, 'xml')
-
+    print(type(soup))
     return soup
 
 
@@ -33,6 +35,7 @@ def extrair_dados_g1():
 
 
 def limpar_descricao(descricao_html):
+    print(type(descricao_html))
     # Faz um soup para manipular a descrição em HTML
     soup_desc = BeautifulSoup(descricao_html, 'html.parser')
 
@@ -61,9 +64,17 @@ def limpar_descricao(descricao_html):
     return texto_limpo
 
 
+def tamanho_total_objetos(lista):
+    tamanho = sys.getsizeof(lista)
+    for obj in lista:
+        tamanho += sys.getsizeof(obj)
+    return tamanho / (1024 * 1024)
+
+
+
 def obter_dados_noticia(soup):
     formato_entrada = "%a, %d %b %Y %H:%M:%S %z"
-
+    lista_noticias = []
     for noticia in soup.find_all('item'):
         print(noticia.title.text)
         print(noticia.guid.text)
@@ -78,8 +89,24 @@ def obter_dados_noticia(soup):
         data = noticia.pubDate.text
         data = datetime.strptime(data, formato_entrada)
         data = data.strftime("%d-%m-%Y %H:%M:%S")
-        print(data)
+
+        data = datetime.strptime(data, "%d-%m-%Y %H:%M:%S")
+        print(data, type(data))
+
+        noticia = Noticia(
+            titulo_noticia=noticia.title.text,
+            url=noticia.guid.text,
+            descricao_noticia=descricao_limpa,
+            url_imagem=media_content,
+            data_publicacao=data,
+
+        )
+        lista_noticias.append(noticia)
+        print(type(noticia))
+        print(noticia)
         print('=' * 100)
+    print('Tamanho da lista')
+    print(f'Tamanho da lista em MB (estrutura + objetos): {tamanho_total_objetos(lista_noticias):.6f}')
 
 
 obter_dados_noticia(soup=soup)
