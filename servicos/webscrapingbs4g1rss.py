@@ -55,11 +55,13 @@ class WebScrapingBs4G1Rss(WebScrapingBs4base):
 
         Args:
             dados (BeautifulSoup): conteúdo da noticia em xml
+            opcao (int): opção para usar 1= gerador 2 retornar um objeto Noticia
 
         Yields:
             Generator[Noticia, None, None]: Gera objetos Noticia extraídos do feed RSS.
 
         """
+
         for noticia in dados.find_all('item'):
             if not isinstance(noticia, Tag):
                 continue
@@ -99,6 +101,7 @@ class WebScrapingBs4G1Rss(WebScrapingBs4base):
             )
 
             yield notica
+
 
 
 if __name__ == '__main__':

@@ -32,15 +32,16 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup]):
         return soup
 
     @abstractmethod
-    def obter_dados(self, dados: BeautifulSoup) -> Generator[Noticia, None, None]:
+    def obter_dados(self, dados: BeautifulSoup) -> Generator[Noticia, None, None] :
         """
           Obtém dados processados a partir da entrada fornecida.
 
           Args:
               dados (T): Dados de entrada para o processamento.
 
+
           Yields:
-              Noticia: Objetos do tipo Noticia gerados durante o processamento.
+              Generator[Noticia, None, None] : Gerador com as noticias
 
 
         """
