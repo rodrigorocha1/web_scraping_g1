@@ -12,4 +12,5 @@ class Noticia:
     url_imagem: str
     titulo: Optional[str] = None
     subtitulo: Optional[str] = None
+    texto_noticia: Optional[str] = None
     autor: Optional[str] = None
