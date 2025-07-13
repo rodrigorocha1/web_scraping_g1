@@ -6,7 +6,7 @@ from typing import Optional
 @dataclass
 class Noticia:
     titulo_noticia: str
-    url: str = field(compare=False)
+    url: Optional[str] = field(compare=False)
     url_imagem: Optional[str] = None
     data_publicacao: Optional[datetime] = None
     descricao_noticia: Optional[str] = None

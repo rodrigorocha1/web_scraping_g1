@@ -1,4 +1,4 @@
-from typing import Generator
+from typing import Generator, Optional
 from models.noticia import Noticia
 from servicos.webscrapingbasebs4 import WebScrapingBs4base
 from bs4 import BeautifulSoup, Tag
@@ -8,7 +8,7 @@ from datetime import datetime
 
 class WebScrapingBs4G1Rss(WebScrapingBs4base):
 
-    def __init__(self, url):
+    def __init__(self, url: Optional[str]):
 
         super().__init__(url=url, parse='xml')
         self.__parser_html = 'html.parser'
@@ -101,7 +101,6 @@ class WebScrapingBs4G1Rss(WebScrapingBs4base):
             )
 
             yield notica
-
 
 
 if __name__ == '__main__':
