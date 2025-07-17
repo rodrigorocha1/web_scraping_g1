@@ -19,6 +19,7 @@ class WebScrapingPipeline(Generic[T]):
         self._sevico_arquivo = None
 
     def rodar_web_scraping(self):
+
         dados = self._servico_web_scraping_rss.abrir_conexao()
         for noticia in self._servico_web_scraping_rss.obter_dados(dados=dados):
 

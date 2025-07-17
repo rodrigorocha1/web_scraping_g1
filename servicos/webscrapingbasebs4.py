@@ -32,9 +32,9 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup]):
     def abrir_conexao(self) -> BeautifulSoup:
         """
             Método para abrir a conexão
-        Returns:
-            soup: objeto soup da página em xml
 
+        Returns:    
+            BeautifulSoup: objeto soup da página em xml
         """
         if self._url is None:
             raise ValueError("URL não pode ser None")
