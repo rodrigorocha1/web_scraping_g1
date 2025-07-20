@@ -1,8 +1,9 @@
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-
+import os
 from models.noticia import Noticia
 from datetime import datetime
+from servicos.manipulador.arquivo_docx import ArquivoDOCX
 
 noticia_exemplo = Noticia(
     titulo="Tecnologia Revoluciona o Mercado em 2025",
@@ -16,6 +17,6 @@ noticia_exemplo = Noticia(
     data_hora=datetime.now()
 )
 
+arquivo_docx = ArquivoDOCX(nome_arquivo='teste.docx')
 
-class ArquivoDocx:
-    pass
+print(caminho)

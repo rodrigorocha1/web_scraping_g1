@@ -32,7 +32,10 @@ class WebScrapingPipeline(Generic[T1, R1, T2, R2]):
                 self._servico_web_scraping_g1.url = noticia["url_rss"]
                 dados_g1: T2 = self._servico_web_scraping_g1.abrir_conexao()
                 noticia_site: R2 = self._servico_web_scraping_g1.obter_dados(dados=dados_g1)
-                print(noticia_site)
+                if isinstance(noticia_site, Noticia):
+                    print(noticia_site.texto)
+                else:
+                    print('Não é noticia')
                 break
 
 

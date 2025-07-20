@@ -39,7 +39,6 @@ class WebScrapingG1(WebScrapingBs4base[Noticia]):
         texto_noticia_elem = dados.select('div.mc-column.content-text.active-extra-styles p')
         texto_tratado = ""
         texto_tratado += " ".join([elemento.text for elemento in texto_noticia_elem])
-        print(texto_tratado)
 
         texto_noticia_tratado = self._tratamento.limpar_descricao(
             descricao_html=texto_tratado,
