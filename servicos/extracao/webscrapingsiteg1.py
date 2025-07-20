@@ -1,7 +1,7 @@
-from typing import Generator, Optional
+from typing import Generator, Optional, Dict, Any
 from bs4 import BeautifulSoup
-from models.noticia import Noticia
-from servicos.webscrapingbasebs4 import WebScrapingBs4base
+
+from servicos.extracao.webscrapingbasebs4 import WebScrapingBs4base
 from datetime import datetime
 
 
@@ -11,7 +11,7 @@ class WebScrapingG1(WebScrapingBs4base):
         super().__init__(url, parse)
         self.__parser_html = 'html.parser'
 
-    def obter_dados(self, dados: BeautifulSoup) -> Generator[Noticia, None, None]:
+    def obter_dados(self, dados: BeautifulSoup) -> Dict[str, Any]:
         titulo_elem = dados.find('h1', class_='content-head__title')
 
         titulo = titulo_elem.get_text(strip=True) if titulo_elem else ""
@@ -40,21 +40,18 @@ class WebScrapingG1(WebScrapingBs4base):
         autor_elem = dados.find('p', class_='content-publication-data__from')
         autor = autor_elem.get_text(strip=True) if autor_elem else ''
 
-        noticia = Noticia(
-            titulo_noticia=titulo,
-            url=self._url,
-            descricao_noticia=None,
-            data_publicacao=data_publicacao,
-            url_imagem=None,
-            subtitulo=sub_titulo,
-            texto_noticia=texto_noticia_tratado,
-            autor=autor
-        )
-        yield noticia
+        return {
+            'titulo_rss': titulo,
+            'sub_titulo_rss': sub_titulo,
+            'data_publicacao_rss': data_publicacao,
+            'texto_noticia_tratado_rss': texto_noticia_tratado,
+            'autor_rss': autor
+
+        }
 
 
 if __name__ == '__main__':
-    from servicos.iwebscrapingbase import IWebScapingBase
+    from servicos.extracao.iwebscrapingbase import IWebScapingBase
 
     if issubclass(WebScrapingG1, IWebScapingBase):
         print('sim')

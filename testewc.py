@@ -1,9 +1,19 @@
-from servicos.webscrapingbs4g1rss import WebScrapingBs4G1Rss
+from docx import Document
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 
-wsbase = WebScrapingBs4G1Rss(url='https://g1.globo.com/rss/g1/sp/ribeirao-preto-franca')
-dados = wsbase.abrir_conexao()
-for notica in wsbase.obter_dados(dados=dados):
-    print(notica)
+doc = Document()
+doc.add_heading('Relatório de vendas', level=1)
+doc.add_paragraph('Paragrafo').add_run('Texto em negrito').bold = True
+doc.add_paragraph('Teste').add_run('Texto em itálico').italic = True
+doc.add_heading('Título Nível 1', level=1)
+doc.add_heading('Título Nível 2', level=2)
 
+p = doc.add_paragraph('''
+Este é um exemplo de texto totalmente justificado. O alinhamento justificado é comum em relatórios, livros e documentos formais, pois proporciona uma aparência organizada e profissional ao texto. Todas as linhas são alinhadas tanto à margem esquerda quanto à margem direita, ajustando o espaçamento entre as palavras.
+''')
 
-url = 'https://g1.globo.com/sp/ribeirao-preto-franca/noticia/2025/07/01/homem-morre-atropelado-na-rodovia-abrao-assed-em-serrana-sp.ghtml'
+# Define alinhamento como JUSTIFY
+p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+
+# Salva o documento
+doc.save('texto_justificado.docx')

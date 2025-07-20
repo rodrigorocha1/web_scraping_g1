@@ -1,8 +1,7 @@
-from typing import Generator, Optional
+from typing import Generator, Optional, Any, Dict
 from abc import abstractmethod
 import requests
-from models.noticia import Noticia
-from servicos.iwebscrapingbase import IWebScapingBase
+from servicos.extracao.iwebscrapingbase import IWebScapingBase
 from bs4 import BeautifulSoup
 from tratamento.tratamento import Tratamento
 
@@ -44,7 +43,7 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup]):
         return soup
 
     @abstractmethod
-    def obter_dados(self, dados: BeautifulSoup) -> Generator[Noticia, None, None]:
+    def obter_dados(self, dados: BeautifulSoup) -> Any:
         """
           Obtém dados processados a partir da entrada fornecida.
 

@@ -1,5 +1,5 @@
 from abc import abstractmethod, ABC
-from typing import TypeVar, Generic, Generator
+from typing import TypeVar, Generic, Generator, Any
 from models.noticia import Noticia
 
 T = TypeVar('T')
@@ -35,7 +35,7 @@ class IWebScapingBase(ABC, Generic[T]):
         pass
 
     @abstractmethod
-    def obter_dados(self, dados: T) -> Generator[Noticia, None, None]:
+    def obter_dados(self, dados: T) -> Any:
         """
         Obtém dados processados a partir da entrada fornecida.
 

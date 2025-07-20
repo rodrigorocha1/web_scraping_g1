@@ -1,6 +1,6 @@
 from typing import Generator, Optional
 from models.noticia import Noticia
-from servicos.webscrapingbasebs4 import WebScrapingBs4base
+from servicos.extracao.webscrapingbasebs4 import WebScrapingBs4base
 from bs4 import BeautifulSoup, Tag
 import re
 from datetime import datetime

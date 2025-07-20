@@ -17,10 +17,10 @@ class Tratamento:
         """
         soup_desc = BeautifulSoup(descricao_html, parser_html)
 
-        for img in soup_desc.find_all('img'):
-            img.decompose()
-
-        texto_limpo = soup_desc.get_text(separator=' ').strip()
+        # for img in soup_desc.find_all('img'):
+        #     img.decompose()
+        #
+        # texto_limpo = soup_desc.get_text(separator=' ').strip()
 
         padroes_a_remover = [
             r'vídeos?.*?(?=\n|$)',
@@ -32,9 +32,9 @@ class Tratamento:
         ]
 
         for padrao in padroes_a_remover:
-            texto_limpo = re.sub(padrao, '', texto_limpo, flags=re.IGNORECASE)
+            texto_limpo = re.sub(padrao, '', descricao_html, flags=re.IGNORECASE)
 
         # Remove espaços extras e quebras de linha
-        texto_limpo = re.sub(r'\s+', ' ', texto_limpo).strip()
+        texto_limpo = re.sub(r'\s+', ' ', descricao_html).strip()
 
         return texto_limpo

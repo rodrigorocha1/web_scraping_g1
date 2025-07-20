@@ -1,16 +1,13 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime
-from turtle import st
-from typing import Optional
 
+
+# Título, subtítulo, texto, autor, data e hora.
 
 @dataclass
 class Noticia:
-    titulo_noticia: str
-    url: str
-    url_imagem: Optional[str] = None
-    data_publicacao: Optional[datetime] = None
-    descricao_noticia: Optional[str] = None
-    subtitulo: Optional[str] = None
-    texto_noticia: Optional[str] = None
-    autor: Optional[str] = None
+    titulo: str
+    subtitulo: str
+    texto: str
+    autor: str
+    data_hora: datetime

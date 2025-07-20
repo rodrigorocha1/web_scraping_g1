@@ -2,9 +2,9 @@ from typing import TypeVar, Generic
 
 from bs4 import BeautifulSoup
 
-from servicos.iwebscrapingbase import IWebScapingBase
-from servicos.webscrapingbs4g1rss import WebScrapingBs4G1Rss
-from servicos.webscrapingsiteg1 import WebScrapingG1
+from servicos.extracao.iwebscrapingbase import IWebScapingBase
+from servicos.extracao.webscrapingbs4g1rss import WebScrapingBs4G1Rss
+from servicos.extracao.webscrapingsiteg1 import WebScrapingG1
 
 T = TypeVar("T")
 
@@ -22,12 +22,13 @@ class WebScrapingPipeline(Generic[T]):
 
         dados = self._servico_web_scraping_rss.abrir_conexao()
         for noticia in self._servico_web_scraping_rss.obter_dados(dados=dados):
-
-            print(noticia)
             self._servico_web_scraping_g1.url = noticia.url
             dados_notica_g1 = self._servico_web_scraping_g1.abrir_conexao()
-            for noticia_site in self._servico_web_scraping_g1.obter_dados(dados=dados_notica_g1):
-                print(noticia_site)
+            print(dados_notica_g1)
+            noticia_site =  self._servico_web_scraping_g1.obter_dados(dados=dados_notica_g1)
+
+            print(noticia_site)
+            exit()
             print('=' * 20)
 
 
@@ -40,7 +41,5 @@ if __name__ == '__main__':
             url=None,
             parse='html.parser'
         )
-
     )
-
     wsp.rodar_web_scraping()
