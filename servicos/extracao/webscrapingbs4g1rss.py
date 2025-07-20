@@ -1,12 +1,11 @@
 from typing import Generator, Optional, Dict, Any
-from models.noticia import Noticia
 from servicos.extracao.webscrapingbasebs4 import WebScrapingBs4base
 from bs4 import BeautifulSoup, Tag
 import re
 from datetime import datetime
 
 
-class WebScrapingBs4G1Rss(WebScrapingBs4base):
+class WebScrapingBs4G1Rss(WebScrapingBs4base[Generator[Dict[str, Any], None, None]]):
 
     def __init__(self, url: Optional[str]):
 

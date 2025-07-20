@@ -1,12 +1,14 @@
-from typing import Generator, Optional, Any, Dict
+from typing import Optional, TypeVar
 from abc import abstractmethod
 import requests
 from servicos.extracao.iwebscrapingbase import IWebScapingBase
 from bs4 import BeautifulSoup
 from tratamento.tratamento import Tratamento
 
+U = TypeVar('U')
 
-class WebScrapingBs4base(IWebScapingBase[BeautifulSoup]):
+
+class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U]):
 
     def __init__(self, url: Optional[str], parse: str):
         """
@@ -43,17 +45,5 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup]):
         return soup
 
     @abstractmethod
-    def obter_dados(self, dados: BeautifulSoup) -> Any:
-        """
-          Obtém dados processados a partir da entrada fornecida.
-
-          Args:
-              dados (T): Dados de entrada para o processamento.
-
-
-          Yields:
-              Generator[Noticia, None, None] : Gerador com as noticias
-
-
-        """
+    def obter_dados(self, dados: BeautifulSoup) -> U:
         pass

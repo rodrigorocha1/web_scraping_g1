@@ -1,4 +1,4 @@
-from typing import Optional, Dict, Any
+from typing import Optional
 from models.noticia import Noticia
 from bs4 import BeautifulSoup
 
@@ -6,7 +6,7 @@ from servicos.extracao.webscrapingbasebs4 import WebScrapingBs4base
 from datetime import datetime
 
 
-class WebScrapingG1(WebScrapingBs4base):
+class WebScrapingG1(WebScrapingBs4base[Noticia]):
 
     def __init__(self, url: Optional[str], parse: str):
         super().__init__(url, parse)
@@ -49,6 +49,7 @@ class WebScrapingG1(WebScrapingBs4base):
             texto=texto_noticia_tratado
 
         )
+
         return noticia
 
 
