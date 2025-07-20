@@ -7,6 +7,7 @@ from typing import Optional
 
 @dataclass
 class Noticia:
+    id_noticia: str
     titulo: str
     subtitulo: str
     texto: str

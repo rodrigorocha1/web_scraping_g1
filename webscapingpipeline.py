@@ -34,6 +34,7 @@ class WebScrapingPipeline(Generic[T1, R1, T2, R2]):
             for noticia in rss_result:
                 self._servico_web_scraping_g1.url = noticia["url_rss"]
                 dados_g1: T2 = self._servico_web_scraping_g1.abrir_conexao()
+
                 noticia_site: R2 = self._servico_web_scraping_g1.obter_dados(dados=dados_g1)
                 if isinstance(noticia_site, Noticia):
                     print(noticia_site.texto)
@@ -43,6 +44,8 @@ class WebScrapingPipeline(Generic[T1, R1, T2, R2]):
 
 
 if __name__ == '__main__':
+    if issubclass(ArquivoDOCX, Arquivo):
+        print('OK')
     rss_service = WebScrapingBs4G1Rss(
         url="https://g1.globo.com/rss/g1/sp/ribeirao-preto-franca"
     )
