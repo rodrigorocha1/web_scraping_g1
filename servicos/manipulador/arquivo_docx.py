@@ -11,6 +11,8 @@ class ArquivoDOCX(Arquivo):
 
         self.__documento = Document()
 
+
+
     def _formatar_titulo(self):
         titulo = self.__documento.add_heading(self.noticia.titulo, level=1)
         titulo.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -58,4 +60,8 @@ class ArquivoDOCX(Arquivo):
         self._formatar_autor_data()
         self._formatar_texto()
         self.__documento.save(self.nome_arquivo)
+
+    def __call__(self):
+        """Permite resetar o objeto chamando-o como função."""
+        self.__init__()  # reinicializa tudo
 

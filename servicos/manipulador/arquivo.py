@@ -15,6 +15,9 @@ class Arquivo(ABC):
     def nome_arquivo(self):
         return self._nome_arquivo
 
+    def __call__(self):
+        self.__init__()
+
     @nome_arquivo.setter
     def nome_arquivo(self, nome_arquivo):
         self._nome_arquivo = nome_arquivo
