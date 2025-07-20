@@ -163,3 +163,14 @@ def listar_noticias(skip: int = 0, limit: int = 10, token: str = Depends(obter_t
         return db.query(NoticiaDB).offset(skip).limit(limit).all()
     finally:
         db.close()
+
+@app.get("/noticias/{id_noticia}", response_model=NoticiaResponse)
+def buscar_noticia(id_noticia: str, token: str = Depends(obter_token)):
+    db = SessionLocal()
+    try:
+        noticia = db.query(NoticiaDB).filter_by(id_noticia=id_noticia).first()
+        if not noticia:
+            raise HTTPException(status_code=404, detail="Notícia não encontrada")
+        return noticia
+    finally:
+        db.close()
