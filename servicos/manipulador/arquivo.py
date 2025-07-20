@@ -1,5 +1,5 @@
 import os
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import Optional
 
 from models.noticia import Noticia
@@ -28,3 +28,8 @@ class Arquivo(ABC):
         if not isinstance(nova_noticia, Noticia) and nova_noticia is not None:
             raise TypeError("O atributo noticia deve ser uma instância de Noticia ou None")
         self.__noticia = nova_noticia
+
+
+    @abstractmethod
+    def gerar_documento(self):
+        pass
