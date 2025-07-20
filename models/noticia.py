@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Optional
 
 
 # Título, subtítulo, texto, autor, data e hora.
@@ -10,4 +11,4 @@ class Noticia:
     subtitulo: str
     texto: str
     autor: str
-    data_hora: datetime
+    data_hora: Optional[datetime]

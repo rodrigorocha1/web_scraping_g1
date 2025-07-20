@@ -1,4 +1,4 @@
-from typing import Generator, Optional
+from typing import Generator, Optional, Dict, Any
 from models.noticia import Noticia
 from servicos.extracao.webscrapingbasebs4 import WebScrapingBs4base
 from bs4 import BeautifulSoup, Tag
@@ -49,13 +49,13 @@ class WebScrapingBs4G1Rss(WebScrapingBs4base):
 
         return texto_limpo
 
-    def obter_dados(self, dados: BeautifulSoup) -> Generator[Noticia, None, None]:
+    def obter_dados(self, dados: BeautifulSoup) -> Generator[Dict[str, Any], None, None]:
         """
             Método para obter os dados
 
         Args:
             dados (BeautifulSoup): conteúdo da noticia em xml
-            opcao (int): opção para usar 1= gerador 2 retornar um objeto Noticia
+
 
         Yields:
             Generator[Noticia, None, None]: Gera objetos Noticia extraídos do feed RSS.
@@ -92,15 +92,16 @@ class WebScrapingBs4G1Rss(WebScrapingBs4base):
             data_publicacao = data_publicacao.strftime("%d-%m-%Y %H:%M:%S")
             data_publicacao = datetime.strptime(data_publicacao, "%d-%m-%Y %H:%M:%S")
 
-            notica = Noticia(
-                titulo_noticia=titulo_noticia,
-                descricao_noticia=descricao_noticia,
-                url=url,
-                url_imagem=url_imagem,
-                data_publicacao=data_publicacao
-            )
+            yield {
+                'titulo_rss': titulo_noticia,
+                'descricao_noticia_rss': descricao_noticia,
+                'url_imagem_rss': url_imagem,
+                'url_rss': url,
+                'data_publicacao_rss': data_publicacao
 
-            yield notica
+            }
+
+
 
 
 if __name__ == '__main__':

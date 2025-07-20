@@ -1,4 +1,5 @@
-from typing import Generator, Optional, Dict, Any
+from typing import Optional, Dict, Any
+from models.noticia import Noticia
 from bs4 import BeautifulSoup
 
 from servicos.extracao.webscrapingbasebs4 import WebScrapingBs4base
@@ -11,7 +12,7 @@ class WebScrapingG1(WebScrapingBs4base):
         super().__init__(url, parse)
         self.__parser_html = 'html.parser'
 
-    def obter_dados(self, dados: BeautifulSoup) -> Dict[str, Any]:
+    def obter_dados(self, dados: BeautifulSoup) -> Noticia:
         titulo_elem = dados.find('h1', class_='content-head__title')
 
         titulo = titulo_elem.get_text(strip=True) if titulo_elem else ""
@@ -40,14 +41,15 @@ class WebScrapingG1(WebScrapingBs4base):
         autor_elem = dados.find('p', class_='content-publication-data__from')
         autor = autor_elem.get_text(strip=True) if autor_elem else ''
 
-        return {
-            'titulo_rss': titulo,
-            'sub_titulo_rss': sub_titulo,
-            'data_publicacao_rss': data_publicacao,
-            'texto_noticia_tratado_rss': texto_noticia_tratado,
-            'autor_rss': autor
+        noticia = Noticia(
+            titulo=titulo,
+            subtitulo=sub_titulo,
+            autor=autor,
+            data_hora=data_publicacao,
+            texto=texto_noticia_tratado
 
-        }
+        )
+        return noticia
 
 
 if __name__ == '__main__':

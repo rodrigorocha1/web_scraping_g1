@@ -29,7 +29,7 @@ class WebScrapingPipeline(Generic[T]):
 
             print(noticia_site)
             exit()
-            print('=' * 20)
+
 
 
 if __name__ == '__main__':
