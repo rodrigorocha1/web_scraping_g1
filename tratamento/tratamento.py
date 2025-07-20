@@ -27,14 +27,13 @@ class Tratamento:
             r'veja\s+mais\s+not[ií]cias.*?(?=\n|$)',
             r'leia\s+mais.*?(?=\n|$)',
             r'receba\s+no\s+whatsapp\s+as\s+not[ií]cias.*?(?=\n|$)',
-             r'siga\s+o\s+canal\s+g1\s+ribeir[aã]o\s+e\s+franca\s+no\s+whatsapp[,\.]*\s*',
-
+            r'siga\s+o\s+canal\s+g1\s+ribeir[aã]o\s+e\s+franca\s+no\s+whatsapp[,\.]*\s*',
+            r'veja\s+mais\s+not[ií]cias\s+da\s+região\s+no\s+g1\s+ribeir[aã]o\s+e\s+franca.*?(?=\n|$)',
         ]
-
         for padrao in padroes_a_remover:
             texto_limpo = re.sub(padrao, '', descricao_html, flags=re.IGNORECASE)
 
         # Remove espaços extras e quebras de linha
-        texto_limpo = re.sub(r'\s+', ' ', descricao_html).strip()
+        texto_limpo = re.sub(r'\s+', ' ', texto_limpo).strip()
 
         return texto_limpo
