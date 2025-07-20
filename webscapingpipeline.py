@@ -7,10 +7,10 @@ from servicos.extracao.iwebscrapingbase import IWebScapingBase
 from servicos.extracao.webscrapingbs4g1rss import WebScrapingBs4G1Rss
 from servicos.extracao.webscrapingsiteg1 import WebScrapingG1
 
-T1 = TypeVar("T1")  # Tipo para conteúdo do RSS (ex.: BeautifulSoup)
-R1 = TypeVar("R1")  # Tipo de retorno do RSS (ex.: Generator[Dict])
-T2 = TypeVar("T2")  # Tipo para conteúdo do site G1 (ex.: BeautifulSoup)
-R2 = TypeVar("R2")  # Tipo de retorno do site G1 (ex.: Noticia)
+T1 = TypeVar("T1")
+R1 = TypeVar("R1")
+T2 = TypeVar("T2")
+R2 = TypeVar("R2")
 
 
 class WebScrapingPipeline(Generic[T1, R1, T2, R2]):
@@ -34,8 +34,6 @@ class WebScrapingPipeline(Generic[T1, R1, T2, R2]):
                 noticia_site: R2 = self._servico_web_scraping_g1.obter_dados(dados=dados_g1)
                 print(noticia_site)
                 break
-        else:
-            print('Não é um gerador')
 
 
 if __name__ == '__main__':
@@ -49,8 +47,8 @@ if __name__ == '__main__':
     )
 
     pipeline = WebScrapingPipeline[
-        BeautifulSoup, Generator[Dict[str, Any], None, None],  # Tipos do RSS
-        BeautifulSoup, Noticia  # Tipos do Site G1
+        BeautifulSoup, Generator[Dict[str, Any], None, None],
+        BeautifulSoup, Noticia
     ](
         servico_web_scraping_rss=rss_service,
         servico_web_scraping_g1=g1_service,

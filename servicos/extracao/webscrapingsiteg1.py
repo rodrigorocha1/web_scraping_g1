@@ -32,11 +32,13 @@ class WebScrapingG1(WebScrapingBs4base[Noticia]):
         texto_noticia_elem = dados.select('div.mc-column.content-text.active-extra-styles p')
         texto_tratado = ""
         texto_tratado += " ".join([elemento.text for elemento in texto_noticia_elem])
+        print(texto_tratado)
 
         texto_noticia_tratado = self._tratamento.limpar_descricao(
             descricao_html=texto_tratado,
             parser_html=self.__parser_html
         )
+        print(texto_noticia_tratado)
 
         autor_elem = dados.find('p', class_='content-publication-data__from')
         autor = autor_elem.get_text(strip=True) if autor_elem else ''
