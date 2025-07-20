@@ -32,22 +32,22 @@ class WebScrapingPipeline(Generic[T1, R1, T2, R2]):
 
         if isinstance(rss_result, Generator):
             for noticia in rss_result:
+                arquivo = self._arquivo
+
                 self._servico_web_scraping_g1.url = noticia["url_rss"]
-
-                nome_arquivo = ''.join(
-                    noticia['url_rss'].split('.')[-2].split('/')[-1].replace('-', '_') + '.docx'
-                )
-
                 dados_g1: T2 = self._servico_web_scraping_g1.abrir_conexao()
                 noticia_site: R2 = self._servico_web_scraping_g1.obter_dados(dados=dados_g1)
-                if isinstance(noticia_site, Noticia):
-                    self._arquivo.nome_arquivo = 'noticia/' + nome_arquivo
-                    self._arquivo.noticia = noticia_site
-                    self._arquivo.gerar_documento()
-
-                else:
-                    print('Não é noticia')
-                break
+                if isinstance(noticia_site, Noticia) and noticia_site.texto:
+                    print(noticia['url_rss'], noticia_site)
+                    nome_arquivo = ''.join(
+                        noticia['url_rss'].split('.')[-2].split('/')[-1].replace('-', '_') + '.docx'
+                    )
+                    dados_g1: T2 = self._servico_web_scraping_g1.abrir_conexao()
+                    noticia_site: R2 = self._servico_web_scraping_g1.obter_dados(dados=dados_g1)
+                    if isinstance(noticia_site, Noticia):
+                        arquivo.nome_arquivo = 'noticia/' + nome_arquivo
+                        arquivo.noticia = noticia_site
+                        arquivo.gerar_documento()
 
 
 if __name__ == '__main__':

@@ -58,3 +58,4 @@ class ArquivoDOCX(Arquivo):
         self._formatar_autor_data()
         self._formatar_texto()
         self.__documento.save(self.nome_arquivo)
+

@@ -1,5 +1,5 @@
-from bs4 import BeautifulSoup
-from bs4.element import ResultSet, Tag
+
+from bs4.element import ResultSet
 import re
 from typing import List
 
@@ -28,7 +28,9 @@ class Tratamento:
         padroes_a_remover = [
             r'✅\s*Clique aqui para seguir o canal do g1 Ribeirão e Franca no WhatsApp',
             r'Veja mais notícias da região no g1 Ribeirão Preto e Franca',
-            r'VÍDEOS: Tudo sobre Ribeirão Preto, Franca e região'
+            r'VÍDEOS: Tudo sobre Ribeirão Preto, Franca e região',
+            r'Veja mais notícias da região no g1 Ribeirão e Franca',
+
         ]
 
         texto_completo = '\n\n'.join(lista_texto)
