@@ -21,7 +21,7 @@ class WebScrapingG1(WebScrapingBs4base[Noticia]):
         :return: A noticia ou nada
         :rtype: Union[None, models.noticia.Noticia]
         """
-        print(self._url)
+
 
         titulo_elem = dados.find('h1', class_='content-head__title')
 
