@@ -6,6 +6,7 @@ from datetime import datetime
 from servicos.manipulador.arquivo_docx import ArquivoDOCX
 
 noticia_exemplo = Noticia(
+    id_noticia='1',
     titulo="Tecnologia Revoluciona o Mercado em 2025",
     subtitulo="Inovações disruptivas transformam indústrias ao redor do mundo",
     texto=(
@@ -16,7 +17,9 @@ noticia_exemplo = Noticia(
     autor="Rodrigo Rocha",
     data_hora=datetime.now()
 )
+print(noticia_exemplo)
 
-arquivo_docx = ArquivoDOCX(nome_arquivo='teste.docx')
-
-print(caminho)
+arquivo_docx = ArquivoDOCX()
+arquivo_docx.nome_arquivo = 'teste.docx'
+arquivo_docx.noticia = noticia_exemplo
+arquivo_docx.gerar_documento()

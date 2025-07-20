@@ -9,7 +9,7 @@ class Arquivo(ABC):
     def __init__(self):
         self._caminho_raiz = os.getcwd()
         self._nome_arquivo = None
-        self.__noticia: Optional[Noticia] = None
+        self._noticia: Optional[Noticia] = None
 
     @property
     def nome_arquivo(self):
