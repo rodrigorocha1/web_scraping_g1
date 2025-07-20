@@ -19,3 +19,13 @@ class Arquivo(ABC):
     @nome_arquivo.setter
     def nome_arquivo(self, nome_arquivo):
         self._nome_arquivo = nome_arquivo
+
+    @property
+    def noticia(self) -> Noticia:
+        return self.__noticia
+
+    @noticia.setter
+    def noticia(self, nova_noticia: Noticia):
+        if not isinstance(nova_noticia, Noticia) and nova_noticia is not None:
+            raise TypeError("O atributo noticia deve ser uma instância de Noticia ou None")
+        self.__noticia = nova_noticia
