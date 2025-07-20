@@ -1,7 +1,6 @@
 from typing import Generator, Optional, Dict, Any
 from servicos.extracao.webscrapingbasebs4 import WebScrapingBs4base
 from bs4 import BeautifulSoup, Tag
-import re
 from datetime import datetime
 
 
@@ -32,13 +31,7 @@ class WebScrapingBs4G1Rss(WebScrapingBs4base[Generator[Dict[str, Any], None, Non
                 if titulo_noticia_tag and isinstance(titulo_noticia_tag, Tag) \
                 else ""
 
-            descricao_html = noticia.find('description')
-            descricao_noticia = self._tratamento.limpar_descricao(
-                descricao_html=descricao_html.text,
-                parser_html=self.__parser_html
-            ) \
-                if descricao_html \
-                else ""
+
 
             media_content_tag = noticia.find('media:content')
             url_imagem = str(media_content_tag['url']) \
@@ -56,7 +49,7 @@ class WebScrapingBs4G1Rss(WebScrapingBs4base[Generator[Dict[str, Any], None, Non
 
             yield {
                 'titulo_rss': titulo_noticia,
-                'descricao_noticia_rss': descricao_noticia,
+
                 'url_imagem_rss': url_imagem,
                 'url_rss': url,
                 'data_publicacao_rss': data_publicacao

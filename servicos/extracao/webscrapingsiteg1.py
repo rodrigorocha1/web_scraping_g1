@@ -39,20 +39,15 @@ class WebScrapingG1(WebScrapingBs4base[Noticia]):
             except ValueError:
                 data_publicacao = datetime.now()  # fallback
 
-        texto_noticia_elem = dados.select('div.mc-column.content-text.active-extra-styles p')
+        texto_noticia_elem = dados.select('p.content-text__container')
 
-        texto_tratado = ""
-        texto_tratado += " ".join([elemento.text for elemento in texto_noticia_elem])
 
 
         texto_noticia_tratado = self._tratamento.limpar_descricao(
-            descricao_html=texto_tratado,
-            parser_html=self.__parser_html
+            textos=texto_noticia_elem
         )
 
-        print(__name__)
-        print('texto_noticia_tratado')
-        print(texto_noticia_tratado)
+
 
         autor_elem = dados.find('p', class_='content-publication-data__from')
         autor = autor_elem.get_text(strip=True) if autor_elem else ''

@@ -37,13 +37,14 @@ class WebScrapingPipeline(Generic[T1, R1, T2, R2]):
                 nome_arquivo = ''.join(
                     noticia['url_rss'].split('.')[-2].split('/')[-1].replace('-', '_') + '.docx'
                 )
-                print(nome_arquivo)
 
                 dados_g1: T2 = self._servico_web_scraping_g1.abrir_conexao()
-
                 noticia_site: R2 = self._servico_web_scraping_g1.obter_dados(dados=dados_g1)
                 if isinstance(noticia_site, Noticia):
-                    print(noticia_site.texto)
+                    self._arquivo.nome_arquivo = 'noticia/' + nome_arquivo
+                    self._arquivo.noticia = noticia_site
+                    self._arquivo.gerar_documento()
+
                 else:
                     print('Não é noticia')
                 break

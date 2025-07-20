@@ -50,6 +50,7 @@ class ArquivoDOCX(Arquivo):
         for run in p_texto.runs:
             run.font.color.rgb = RGBColor(255, 255, 255)
             run.font.size = Pt(12)
+        self.__documento.add_paragraph('')
 
     def gerar_documento(self):
         self._formatar_titulo()
