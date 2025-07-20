@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 import re
 
-
 class Tratamento:
 
     def limpar_descricao(self, descricao_html: str, parser_html: str = "html.parser") -> str:
@@ -22,6 +21,11 @@ class Tratamento:
         for img in soup_desc.find_all('img'):
             img.decompose()
 
+        # Remove listas relacionadas a "leia também"
+        for lista in soup_desc.find_all(['ul', 'ol']):
+            if lista.find_previous(string=re.compile(r'leia\s+tamb[eé]m', re.IGNORECASE)):
+                lista.decompose()
+
         # Extrai o texto, mantendo quebras de linha
         texto_limpo = soup_desc.get_text(separator='\n').strip()
 
@@ -30,6 +34,7 @@ class Tratamento:
             r'vídeos?.*?(?=\n|$)',
             r'veja\s+mais\s+not[ií]cias.*?(?=\n|$)',
             r'leia\s+mais.*?(?=\n|$)',
+            r'leia\s+tamb[eé]m.*?(?=\n|$)',  # <- Remove explicitamente o "leia também"
             r'receba\s+no\s+whatsapp\s+as\s+not[ií]cias.*?(?=\n|$)',
             r'siga\s+o\s+canal\s+g1\s+ribeir[aã]o\s+e\s+franca\s+no\s+whatsapp[,\.]*\s*',
             r'✅\s*clique\s*aqui\s*para\s*seguir\s*o\s*canal\s*do\s*g1\s*ribeir[aã]o\s*e\s*franca\s*no\s*whatsapp[,\.]*\s*',
