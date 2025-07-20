@@ -1,7 +1,7 @@
 from typing import TypeVar, Generic, Generator, Dict, Any
 
 from bs4 import BeautifulSoup
-
+from servicos.manipulador.arquivo import Arquivo
 from models.noticia import Noticia
 from servicos.extracao.iwebscrapingbase import IWebScapingBase
 from servicos.extracao.webscrapingbs4g1rss import WebScrapingBs4G1Rss
@@ -18,9 +18,11 @@ class WebScrapingPipeline(Generic[T1, R1, T2, R2]):
             self,
             servico_web_scraping_rss: IWebScapingBase[T1, R1],
             servico_web_scraping_g1: IWebScapingBase[T2, R2],
+            arquivo = Arquivo
     ):
         self._servico_web_scraping_rss: IWebScapingBase[T1, R1] = servico_web_scraping_rss
         self._servico_web_scraping_g1: IWebScapingBase[T2, R2] = servico_web_scraping_g1
+        self._arquivo = arquivo
 
     def rodar_web_scraping(self) -> None:
 

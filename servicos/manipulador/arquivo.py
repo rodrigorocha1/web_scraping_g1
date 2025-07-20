@@ -2,11 +2,15 @@ import os
 from abc import ABC
 from typing import Generic, TypeVar
 
+from models.noticia import Noticia
+
 
 class Arquivo(ABC):
     def __init__(self, nome_arquivo: str):
         self._caminho_raiz = os.getcwd()
         self._nome_arquivo = nome_arquivo
+        self.__noticia = Noticia
+
 
     @property
     def nome_arquivo(self):
