@@ -58,7 +58,7 @@ if __name__ == '__main__':
     ](
         servico_web_scraping_rss=rss_service,
         servico_web_scraping_g1=g1_service,
-        arquivo = ArquivoDOCX(nome_arquivo=None)
+        arquivo = ArquivoDOCX()
     )
 
     pipeline.rodar_web_scraping()

@@ -6,7 +6,7 @@ from models.noticia import Noticia
 
 
 class Arquivo(ABC):
-    def __init__(self, nome_arquivo: str):
+    def __init__(self):
         self._caminho_raiz = os.getcwd()
         self._nome_arquivo = None
         self.__noticia: Optional[Noticia] = None
