@@ -6,8 +6,8 @@ from docx.shared import RGBColor, Pt
 
 
 class ArquivoDOCX(Arquivo):
-    def __init__(self, nome_arquivo: str):
-        super().__init__(nome_arquivo=nome_arquivo)
+    def __init__(self):
+        super().__init__()
 
         self.__documento = Document()
 
