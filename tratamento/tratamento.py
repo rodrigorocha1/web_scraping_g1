@@ -17,10 +17,10 @@ class Tratamento:
         """
         soup_desc = BeautifulSoup(descricao_html, parser_html)
 
-        # for img in soup_desc.find_all('img'):
-        #     img.decompose()
-        #
-        # texto_limpo = soup_desc.get_text(separator=' ').strip()
+        for img in soup_desc.find_all('img'):
+            img.decompose()
+
+        texto_limpo = soup_desc.get_text(separator=' ').strip()
 
         padroes_a_remover = [
             r'vídeos?.*?(?=\n|$)',
