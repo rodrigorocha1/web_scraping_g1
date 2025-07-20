@@ -17,15 +17,11 @@ class WebScrapingBs4G1Rss(WebScrapingBs4base[Generator[Dict[str, Any], None, Non
 
     def obter_dados(self, dados: BeautifulSoup) -> Generator[Dict[str, Any], None, None]:
         """
-            Método para obter os dados
-
-        Args:
-            dados (BeautifulSoup): conteúdo da noticia em xml
-
-
-        Yields:
-            Generator[Noticia, None, None]: Gera objetos Noticia extraídos do feed RSS.
-
+        Método para obter os dados do site g1
+        :param dados: objeto bs4
+        :type dados: bs4.BeautifulSoup
+        :return: Dados da noticia
+        :rtype: Union[models.noticia.Noticia, None]
         """
 
         for noticia in dados.find_all('item'):

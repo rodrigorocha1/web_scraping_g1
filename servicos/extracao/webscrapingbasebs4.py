@@ -12,30 +12,44 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U]):
 
     def __init__(self, url: Optional[str], parse: str):
         """
-        Método para iniciar a classe com a url do g1
-        Args:
-            url (str): url do site rss
+        Construtor da classe
+        :param url: url de conexão
+        :type url: string
+        :param parse: tipo de parse do bs4
+        type parse: str
         """
+
         self._parse = parse
         self._url = url
         self._tratamento = Tratamento()
 
     @property
     def url(self) -> str:
+        """
+        Método de validação
+        :return: url validada
+        :rtype: str
+        """
         if self._url is None:
             raise ValueError("URL não pode ser None")
         return self._url
 
     @url.setter
     def url(self, nova_url: str) -> None:
+        """
+        url do web scraping
+        :param nova_url: url da extração
+        :type nova_url: str
+        :return:  Sem retorno
+        :rtype: None
+        """
         self._url = nova_url
 
     def abrir_conexao(self) -> BeautifulSoup:
         """
-            Método para abrir a conexão
-
-        Returns:    
-            BeautifulSoup: objeto soup da página em xml
+        Método para abrir a conexão do bs4
+        :return: objeto do BeautifulSoup
+        :rtype: BeautifulSoup
         """
         if self._url is None:
             raise ValueError("URL não pode ser None")
@@ -46,4 +60,11 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U]):
 
     @abstractmethod
     def obter_dados(self, dados: BeautifulSoup) -> U:
+        """
+        Método para obter os dados da extração
+        :param dados: objeto BS4
+        :type dados: BeautifulSoup
+        :return: dados obtidos da Noticia
+        :rtype: BeautifulSoup
+        """
         pass

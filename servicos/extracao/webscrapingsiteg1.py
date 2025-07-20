@@ -13,6 +13,13 @@ class WebScrapingG1(WebScrapingBs4base[Noticia]):
         self.__parser_html = 'html.parser'
 
     def obter_dados(self, dados: BeautifulSoup) -> Noticia:
+        """
+        Método para obter a noticia
+        :param dados: dados do bs4
+        :type dados: Union[bs4.BeautifulSoup, str]
+        :return: A noticia ou nada
+        :rtype: Union[None, models.noticia.Noticia]
+        """
         titulo_elem = dados.find('h1', class_='content-head__title')
 
         titulo = titulo_elem.get_text(strip=True) if titulo_elem else ""
@@ -38,7 +45,7 @@ class WebScrapingG1(WebScrapingBs4base[Noticia]):
             descricao_html=texto_tratado,
             parser_html=self.__parser_html
         )
-        print(texto_noticia_tratado)
+
 
         autor_elem = dados.find('p', class_='content-publication-data__from')
         autor = autor_elem.get_text(strip=True) if autor_elem else ''

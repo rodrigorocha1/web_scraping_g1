@@ -19,33 +19,31 @@ class IWebScapingBase(ABC, Generic[T, U]):
     @abstractmethod
     def url(self, url: str) -> None:
         """
-        Define a URL para conexão.
+        Método porpeties para tratar a url
+
+        :param url: url de conexão
+        :type url: str
+        :return: None
+        :rtype: None
         """
         pass
 
     @abstractmethod
     def abrir_conexao(self) -> T:
         """
-        Método para abrir a conexão
-
-        Returns:
-            A conexão com o site
-
+        Método que vai representar a conexão do web scraping
+        :return: Objeto de conexão
+        :rtype: T
         """
         pass
 
     @abstractmethod
     def obter_dados(self, dados: T) -> U:
         """
-        Obtém dados processados a partir da entrada fornecida.
-
-        Args:
-            dados (T): Dados de entrada para o processamento.
-
-
-        Yields:
-            Generator[Noticia, None, None: Objetos do tipo Noticia gerados durante o processamento.
-
-
+        Método genérico pra obter os dados do web scrapinb
+        :param dados: o objeto de dados de conexão
+        :type dados: T
+        :return: dados da extração
+        :rtype: U
         """
         pass
