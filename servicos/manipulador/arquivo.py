@@ -1,6 +1,6 @@
 import os
 from abc import ABC
-from typing import Generic, TypeVar
+from typing import Optional
 
 from models.noticia import Noticia
 
@@ -9,8 +9,7 @@ class Arquivo(ABC):
     def __init__(self, nome_arquivo: str):
         self._caminho_raiz = os.getcwd()
         self._nome_arquivo = nome_arquivo
-        self.__noticia = Noticia
-
+        self.__noticia: Optional[Noticia] = None
 
     @property
     def nome_arquivo(self):
@@ -21,7 +20,7 @@ class Arquivo(ABC):
         self._nome_arquivo = nome_arquivo
 
     @property
-    def noticia(self) -> Noticia:
+    def noticia(self) -> Optional[Noticia]:
         return self.__noticia
 
     @noticia.setter
