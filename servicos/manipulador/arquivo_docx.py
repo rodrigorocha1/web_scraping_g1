@@ -28,11 +28,15 @@ class ArquivoDOCX(Arquivo):
             run.font.italic = True
 
     def _formatar_autor_data(self):
-        autor_data = (
-            f'Por {self.__noticia.autor} —  '
-            f'{self.__noticia.data_hora.strftime("%d/%m/%Y %H:%M:%S") 
-            if self.__noticia.data_hora else "Data não informada"}'
+        data_formatada = (
+            self.__noticia.data_hora.strftime("%d/%m/%Y %H:%M:%S")
+            if self.__noticia.data_hora
+            else "Data não informada"
         )
+
+        autor_data = f'Por {self.__noticia.autor} — {data_formatada}'
+
+
 
         p_meta = self.__documento.add_paragraph(autor_data)
         p_meta.alignment = WD_ALIGN_PARAGRAPH.CENTER
