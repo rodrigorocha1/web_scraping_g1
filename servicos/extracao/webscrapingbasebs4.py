@@ -49,7 +49,7 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U]):
         """
         self._url = nova_url
 
-    def abrir_conexao(self) -> BeautifulSoup:
+    def abrir_conexao(self) -> Optional[BeautifulSoup]:
         """
         Método para abrir a conexão do bs4
         :return: objeto do BeautifulSoup
@@ -69,25 +69,29 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U]):
 
             except Exception as e:
                 logger.error(f'Erro inesperado {e}')
+                return None
 
         except HTTPError as http_err:
             logger.error(f"Erro HTTP ({response.status_code}): {http_err} - Pipeline fechado")
-            exit()
+            return None
         except ConnectionError:
             logger.error(f'Erro de conexão na url {self._url} - Pipeline fechado')
-            exit()
+            return None
         except ConnectTimeout:
             logger.error(f'Tempo de conexão excedido url {self._url} - Pipeline fechado ')
-            exit()
+            return None
         except ReadTimeout:
             logging.error(f"Tempo de leitura excedido url {self._url} - Pipeline fechado")
-            exit()
+            return None
         except TooManyRedirects:
             logging.error("Redirecionamentos em excesso detectados. url {self._url} - Pipeline fechado")
+            return None
         except RequestException as req_err:
             logging.error(f"Erro de requisição: {req_err} url {self._url} - Pipeline fechado")
+            return None
         except Exception as e:
             logging.error(f"Erro inesperado: {e} url {self._url} - Pipeline fechado")
+            return None
 
 
     @abstractmethod

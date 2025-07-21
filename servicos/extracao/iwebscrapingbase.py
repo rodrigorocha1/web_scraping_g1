@@ -1,6 +1,5 @@
 from abc import abstractmethod, ABC
-from typing import TypeVar, Generic
-
+from typing import TypeVar, Generic, Optional
 
 T = TypeVar('T')
 U = TypeVar('U')
@@ -29,7 +28,7 @@ class IWebScapingBase(ABC, Generic[T, U]):
         pass
 
     @abstractmethod
-    def abrir_conexao(self) -> T:
+    def abrir_conexao(self) -> Optional[T]:
         """
         Método que vai representar a conexão do web scraping
         :return: Objeto de conexão
