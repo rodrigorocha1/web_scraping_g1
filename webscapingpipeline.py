@@ -30,6 +30,26 @@ class WebScrapingPipeline(Generic[T1, R1, T2, R2]):
         self._noticia_api = noticia_api
 
 
+    def gravar_arquivo(self, rss_result: Generator):
+        if isinstance(rss_result, Generator):
+            for noticia in rss_result:
+                self._servico_web_scraping_g1.url = noticia["url_rss"]
+                dados_g1: T2 = self._servico_web_scraping_g1.abrir_conexao()
+                noticia_site: R2 = self._servico_web_scraping_g1.obter_dados(dados=dados_g1)
+                if isinstance(noticia_site, Noticia) and noticia_site.texto:
+                    nome_arquivo = ''.join(
+                        noticia['url_rss'].split('.')[-2].split('/')[-1].replace('-', '_') + '.docx'
+                    )
+                    dados_g1: T2 = self._servico_web_scraping_g1.abrir_conexao()
+                    noticia_site: R2 = self._servico_web_scraping_g1.obter_dados(dados=dados_g1)
+                    if isinstance(noticia_site, Noticia):
+                        logger.info(f'Gerando arquivo para  a noticia: {noticia["url_rss"]}')
+                        self._arquivo.nome_arquivo = 'noticia/' + nome_arquivo
+                        self._arquivo.noticia = noticia_site
+                        self._arquivo.gerar_documento()
+                        self._arquivo()
+
+
     def rodar_web_scraping(self) -> None:
 
         logger.info('Iniciando web scraping')
@@ -38,25 +58,9 @@ class WebScrapingPipeline(Generic[T1, R1, T2, R2]):
 
             dados_rss: T1 = self._servico_web_scraping_rss.abrir_conexao()
             rss_result: R1 = self._servico_web_scraping_rss.obter_dados(dados=dados_rss)
+            self.gravar_arquivo(rss_result=rss_result)
 
-            if isinstance(rss_result, Generator):
-                for noticia in rss_result:
 
-                    self._servico_web_scraping_g1.url = noticia["url_rss"]
-                    dados_g1: T2 = self._servico_web_scraping_g1.abrir_conexao()
-                    noticia_site: R2 = self._servico_web_scraping_g1.obter_dados(dados=dados_g1)
-                    if isinstance(noticia_site, Noticia) and noticia_site.texto:
-                        nome_arquivo = ''.join(
-                            noticia['url_rss'].split('.')[-2].split('/')[-1].replace('-', '_') + '.docx'
-                        )
-                        dados_g1: T2 = self._servico_web_scraping_g1.abrir_conexao()
-                        noticia_site: R2 = self._servico_web_scraping_g1.obter_dados(dados=dados_g1)
-                        if isinstance(noticia_site, Noticia):
-                            logger.info(f'Gerando arquivo para  a noticia: {noticia["url_rss"]}')
-                            self._arquivo.nome_arquivo = 'noticia/' + nome_arquivo
-                            self._arquivo.noticia = noticia_site
-                            self._arquivo.gerar_documento()
-                            self._arquivo()
         else:
             logger.info('api fora do ar')
         logger.info('Terminou web scraping')
@@ -80,7 +84,9 @@ if __name__ == '__main__':
     ](
         servico_web_scraping_rss=rss_service,
         servico_web_scraping_g1=g1_service,
-        arquivo=ArquivoDOCX()
+        arquivo=ArquivoDOCX(),
+        noticia_api=None
+
     )
 
     pipeline.rodar_web_scraping()

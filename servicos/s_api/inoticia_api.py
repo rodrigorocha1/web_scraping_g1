@@ -5,7 +5,7 @@ from models.noticia import Noticia
 class INoticiaApi(ABC):
 
     @abstractmethod
-    def check_conexcao(self) -> bool:
+    def checar_conexcao(self) -> bool:
         pass
 
     @abstractmethod
