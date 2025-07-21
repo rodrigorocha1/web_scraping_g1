@@ -8,7 +8,6 @@ class INoticiaApi(ABC):
     def check_conexcao(self) -> bool:
         pass
 
-
     @abstractmethod
     def salvar_dados(self, noticia: Noticia):
         pass
