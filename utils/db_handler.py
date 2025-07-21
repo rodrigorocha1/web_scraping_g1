@@ -12,7 +12,7 @@ class DBHandler(logging.Handler):
     def emit(self, record):
         # Obtém timestamp formatado (yyyy-mm-dd hh:mm:ss)
         timestamp = datetime.fromtimestamp(record.created).strftime("%Y-%m-%d %H:%M:%S")
-
+        status_code = getattr(record, 'status_code', None)
         log_entry = self.format(record)
         print(log_entry)
         self.cursor.execute(
