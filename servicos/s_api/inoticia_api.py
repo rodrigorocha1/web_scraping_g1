@@ -5,6 +5,11 @@ from models.noticia import Noticia
 class INoticiaApi(ABC):
 
     @abstractmethod
+    def check_conexcao(self) -> bool:
+        pass
+
+
+    @abstractmethod
     def salvar_dados(self, noticia: Noticia):
         pass
 
