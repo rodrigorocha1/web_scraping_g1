@@ -62,7 +62,7 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U]):
             response = requests.get(url=self._url)
             response.raise_for_status()
             conteudo_response = response.content
-            logger.info('Sucesso ao conectar na url')
+            logger.info('Sucesso ao conectar na url', extra={'status_code': response.status_code})
             try:
                 soup = BeautifulSoup(conteudo_response, self._parse)
                 return soup
@@ -72,25 +72,25 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U]):
                 return None
 
         except HTTPError as http_err:
-            logger.error(f"Erro HTTP ({response.status_code}): {http_err} - Pipeline fechado")
+            logger.error(f"Erro HTTP ({response.status_code}): {http_err} - Pipeline fechado",  extra={'status_code': response.status_code})
             return None
         except ConnectionError:
-            logger.error(f'Erro de conexão na url {self._url} - Pipeline fechado')
+            logger.error(f'Erro de conexão na url {self._url} - Pipeline fechado',  extra={'status_code': response.status_code})
             return None
         except ConnectTimeout:
-            logger.error(f'Tempo de conexão excedido url {self._url} - Pipeline fechado ')
+            logger.error(f'Tempo de conexão excedido url {self._url} - Pipeline fechado ',  extra={'status_code': response.status_code})
             return None
         except ReadTimeout:
-            logging.error(f"Tempo de leitura excedido url {self._url} - Pipeline fechado")
+            logging.error(f"Tempo de leitura excedido url {self._url} - Pipeline fechado",  extra={'status_code': response.status_code})
             return None
         except TooManyRedirects:
-            logging.error("Redirecionamentos em excesso detectados. url {self._url} - Pipeline fechado")
+            logging.error("Redirecionamentos em excesso detectados. url {self._url} - Pipeline fechado",  extra={'status_code': response.status_code})
             return None
         except RequestException as req_err:
-            logging.error(f"Erro de requisição: {req_err} url {self._url} - Pipeline fechado")
+            logging.error(f"Erro de requisição: {req_err} url {self._url} - Pipeline fechado",  extra={'status_code': response.status_code})
             return None
         except Exception as e:
-            logging.error(f"Erro inesperado: {e} url {self._url} - Pipeline fechado")
+            logging.error(f"Erro inesperado: {e} url {self._url} - Pipeline fechado",  extra={'status_code': response.status_code})
             return None
 
 

@@ -7,6 +7,7 @@ from models.noticia import Noticia
 from servicos.extracao.iwebscrapingbase import IWebScapingBase
 from servicos.extracao.webscrapingbs4g1rss import WebScrapingBs4G1Rss
 from servicos.extracao.webscrapingsiteg1 import WebScrapingG1
+from utils.log_pipeline import logger
 
 T1 = TypeVar("T1")
 R1 = TypeVar("R1")
@@ -26,7 +27,7 @@ class WebScrapingPipeline(Generic[T1, R1, T2, R2]):
         self._arquivo = arquivo
 
     def rodar_web_scraping(self) -> None:
-
+        logger.info('Iniciando web scraping')
         dados_rss: T1 = self._servico_web_scraping_rss.abrir_conexao()
         rss_result: R1 = self._servico_web_scraping_rss.obter_dados(dados=dados_rss)
 
@@ -37,18 +38,18 @@ class WebScrapingPipeline(Generic[T1, R1, T2, R2]):
                 dados_g1: T2 = self._servico_web_scraping_g1.abrir_conexao()
                 noticia_site: R2 = self._servico_web_scraping_g1.obter_dados(dados=dados_g1)
                 if isinstance(noticia_site, Noticia) and noticia_site.texto:
-                    print(noticia['url_rss'], noticia_site)
                     nome_arquivo = ''.join(
                         noticia['url_rss'].split('.')[-2].split('/')[-1].replace('-', '_') + '.docx'
                     )
                     dados_g1: T2 = self._servico_web_scraping_g1.abrir_conexao()
                     noticia_site: R2 = self._servico_web_scraping_g1.obter_dados(dados=dados_g1)
                     if isinstance(noticia_site, Noticia):
+                        logger.info(f'Gerando arquivo para  a noticia: {noticia["url_rss"]}')
                         self._arquivo.nome_arquivo = 'noticia/' + nome_arquivo
                         self._arquivo.noticia = noticia_site
                         self._arquivo.gerar_documento()
                         self._arquivo()
-
+        logger.info('Terminou web scraping')
 
 if __name__ == '__main__':
     if issubclass(ArquivoDOCX, Arquivo):

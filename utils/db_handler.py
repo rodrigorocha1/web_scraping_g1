@@ -6,7 +6,7 @@ from datetime import datetime
 class DBHandler(logging.Handler):
     def __init__(self):
         super().__init__()
-        self.conn = sqlite3.connect('../logs.db')
+        self.conn = sqlite3.connect('/home/rodrigo/Documentos/projetos/web_scraping_g1/logs.db')
         self.cursor = self.conn.cursor()
 
     def emit(self, record):
@@ -16,8 +16,8 @@ class DBHandler(logging.Handler):
         log_entry = self.format(record)
         print(log_entry)
         self.cursor.execute(
-            'INSERT INTO logs VALUES (?, ?, ?, ?, ?, ?, ?)',
-            (timestamp, record.levelname, record.message, record.name, record.filename, record.funcName, record.lineno)
+            'INSERT INTO logs VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            (timestamp, record.levelname, record.message, record.name, record.filename, record.funcName, record.lineno, status_code)
         )
 
         self.conn.commit()
