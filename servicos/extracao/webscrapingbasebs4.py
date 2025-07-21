@@ -1,9 +1,13 @@
+import logging
 from typing import Optional, TypeVar
 from abc import abstractmethod
 import requests
 from servicos.extracao.iwebscrapingbase import IWebScapingBase
 from bs4 import BeautifulSoup
 from tratamento.tratamento import Tratamento
+from requests.exceptions import HTTPError, ConnectionError, ConnectTimeout, ReadTimeout, TooManyRedirects, \
+    RequestException
+from utils.log_pipeline import logger
 
 U = TypeVar('U')
 
@@ -51,12 +55,40 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U]):
         :return: objeto do BeautifulSoup
         :rtype: BeautifulSoup
         """
-        if self._url is None:
-            raise ValueError("URL não pode ser None")
-        response = requests.get(url=self._url)
-        conteudo_response = response.content
-        soup = BeautifulSoup(conteudo_response, self._parse)
-        return soup
+        try:
+            if self._url is None:
+                raise ValueError("URL não pode ser None")
+            logger.info(f'Conectando na URL {self._url}')
+            response = requests.get(url=self._url)
+            response.raise_for_status()
+            conteudo_response = response.content
+            logger.info('Sucesso ao conectar na url')
+            try:
+                soup = BeautifulSoup(conteudo_response, self._parse)
+                return soup
+
+            except Exception as e:
+                logger.error(f'Erro inesperado {e}')
+
+        except HTTPError as http_err:
+            logger.error(f"Erro HTTP ({response.status_code}): {http_err} - Pipeline fechado")
+            exit()
+        except ConnectionError:
+            logger.error(f'Erro de conexão na url {self._url} - Pipeline fechado')
+            exit()
+        except ConnectTimeout:
+            logger.error(f'Tempo de conexão excedido url {self._url} - Pipeline fechado ')
+            exit()
+        except ReadTimeout:
+            logging.error(f"Tempo de leitura excedido url {self._url} - Pipeline fechado")
+            exit()
+        except TooManyRedirects:
+            logging.error("Redirecionamentos em excesso detectados. url {self._url} - Pipeline fechado")
+        except RequestException as req_err:
+            logging.error(f"Erro de requisição: {req_err} url {self._url} - Pipeline fechado")
+        except Exception as e:
+            logging.error(f"Erro inesperado: {e} url {self._url} - Pipeline fechado")
+
 
     @abstractmethod
     def obter_dados(self, dados: BeautifulSoup) -> U:

@@ -2,9 +2,12 @@ from typing import Optional
 from models.noticia import Noticia
 from bs4 import BeautifulSoup
 import hashlib
+import logging
+from utils.db_handler import DBHandler
 
 from servicos.extracao.webscrapingbasebs4 import WebScrapingBs4base
 from datetime import datetime
+
 
 
 class WebScrapingG1(WebScrapingBs4base[Noticia]):
@@ -21,7 +24,6 @@ class WebScrapingG1(WebScrapingBs4base[Noticia]):
         :return: A noticia ou nada
         :rtype: Union[None, models.noticia.Noticia]
         """
-
 
         titulo_elem = dados.find('h1', class_='content-head__title')
 
@@ -41,13 +43,9 @@ class WebScrapingG1(WebScrapingBs4base[Noticia]):
 
         texto_noticia_elem = dados.select('p.content-text__container')
 
-
-
         texto_noticia_tratado = self._tratamento.limpar_descricao(
             textos=texto_noticia_elem
         )
-
-
 
         autor_elem = dados.find('p', class_='content-publication-data__from')
         autor = autor_elem.get_text(strip=True) if autor_elem else ''
