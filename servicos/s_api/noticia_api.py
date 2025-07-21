@@ -11,7 +11,8 @@ class NoticiaAPI(INoticiaApi, ABC):
         self.__user_api = Config.USER_API
         self.__senha_api = Config.SENHA_API
 
-    def
+    def check_conexcao(self) -> bool:
+        pass
 
     def salvar_dados(self, noticia: Noticia):
         pass
