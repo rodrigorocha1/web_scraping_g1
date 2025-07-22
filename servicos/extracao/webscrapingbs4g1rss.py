@@ -12,8 +12,6 @@ class WebScrapingBs4G1Rss(WebScrapingBs4base[Generator[Dict[str, Any], None, Non
         self.__parser_html = 'html.parser'
         self.__formatado_data_entrada = "%a, %d %b %Y %H:%M:%S %z"
 
-
-
     def obter_dados(self, dados: BeautifulSoup) -> Generator[Dict[str, Any], None, None]:
         """
         Método para obter os dados do site g1
@@ -30,8 +28,6 @@ class WebScrapingBs4G1Rss(WebScrapingBs4base[Generator[Dict[str, Any], None, Non
             titulo_noticia = titulo_noticia_tag.text.strip() \
                 if titulo_noticia_tag and isinstance(titulo_noticia_tag, Tag) \
                 else ""
-
-
 
             media_content_tag = noticia.find('media:content')
             url_imagem = str(media_content_tag['url']) \
@@ -55,14 +51,3 @@ class WebScrapingBs4G1Rss(WebScrapingBs4base[Generator[Dict[str, Any], None, Non
                 'data_publicacao_rss': data_publicacao
 
             }
-
-
-
-
-if __name__ == '__main__':
-    wsbs4 = WebScrapingBs4G1Rss(url='https://g1.globo.com/rss/g1/sp/ribeirao-preto-franca')
-
-    dados = wsbs4.abrir_conexao()
-
-    for noticia in wsbs4.obter_dados(dados=dados):
-        print(noticia)

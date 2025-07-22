@@ -97,7 +97,11 @@ class NoticiaAPI(INoticiaApi):
 
 if __name__ == '__main__':
     noticia_api = NoticiaAPI()
-    noticia = noticia_api.consultar_dados_id(id_noticia='z')
+    noticia = noticia_api.consultar_dados_id(id_noticia='578a50661d5e4fd98670cef1d6c07886')
+    if noticia:
+        print(1, noticia)
+    else:
+        print(2, noticia)
     print(noticia)
     # for i in range(0, 6):
     #     noticia = Noticia(
