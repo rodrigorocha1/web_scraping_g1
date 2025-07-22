@@ -25,5 +25,5 @@ class Handler(ABC):
             logger.warning(f'{self.__class__.__name__} -> Falha, pipeline interrompido')
 
     @abstractmethod
-    def executar_processo(self, context: PipelineContext) -> None:
+    def executar_processo(self, context: PipelineContext) -> bool:
         pass
