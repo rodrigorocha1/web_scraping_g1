@@ -21,7 +21,7 @@ class NoticiaAPI(INoticiaApi):
         self.__variaveis = SimpleNamespace()
         self.__variaveis.token = None
 
-    def checar_conexcao(self) -> bool:
+    def checar_conexao(self) -> bool:
         """
         Método para checar a conexão da API
         :return: Api sucesso ou falha
@@ -61,7 +61,7 @@ class NoticiaAPI(INoticiaApi):
 
         if isinstance(noticia_dict.get('data_hora'), datetime.datetime):
             noticia_dict['data_hora'] = noticia_dict['data_hora'].isoformat()
-        payload = json.dumps(noticia)
+        payload = json.dumps(noticia_dict)
         self.__garantir_token()
         token = self.__variaveis.token
         self.__header['Authorization'] = token
@@ -76,21 +76,22 @@ class NoticiaAPI(INoticiaApi):
             exit()
 
 
-    def consultar_dados_id(self, id_noticia) -> Noticia:
+    def consultar_dados_id(self, id_noticia) -> Noticia | str:
         """
         Método para consultar a no
         :param id_noticia: id da noticia
         :type id_noticia: st
         :return: A noticia
-        :rtype: Noticia
+        :rtype: Noticia | str
         """
         url =f'{self.__URL_API}/noticias/{id_noticia}'
         self.__garantir_token()
         token = self.__variaveis.token
         self.__header['Authorization'] = token
         response = requests.get(url, headers=self.__header, )
-        noticia = Noticia(**response.json())
-        return noticia
+        if response.status_code == '200':
+            return Noticia(**response.json())
+        return f'Noticia de id {id_noticia} não foi encontrada'
 
 
 
@@ -101,7 +102,7 @@ class NoticiaAPI(INoticiaApi):
 if __name__ == '__main__':
 
     noticia_api = NoticiaAPI()
-    noticia = noticia_api.consultar_dados_id(id_noticia='1')
+    noticia = noticia_api.consultar_dados_id(id_noticia='z')
     print(noticia)
     # for i in range(0, 6):
     #     noticia = Noticia(

@@ -5,7 +5,7 @@ from models.noticia import Noticia
 class INoticiaApi(ABC):
 
     @abstractmethod
-    def checar_conexcao(self) -> bool:
+    def checar_conexao(self) -> bool:
         pass
 
     @abstractmethod
@@ -13,7 +13,7 @@ class INoticiaApi(ABC):
         pass
 
     @abstractmethod
-    def consultar_dados_id(self, id_noticia) -> Noticia:
+    def consultar_dados_id(self, id_noticia) -> Noticia| str:
         pass
 
     def realizar_login(self):
