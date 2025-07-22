@@ -14,6 +14,3 @@ class Variaveis:
         return self._variaveis[chave]
 
 
-v = Variaveis()
-v['TOKEN_API'] = '1234565'
-print(v['TOKEN_API'])
