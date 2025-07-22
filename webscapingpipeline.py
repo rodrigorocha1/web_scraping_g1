@@ -54,7 +54,7 @@ class WebScrapingPipeline(Generic[T1, R1, T2, R2]):
 
         logger.info('Iniciando web scraping')
 
-        if self._noticia_api.check_conexcao():
+        if self._noticia_api.checar_conexcao():
 
             dados_rss: T1 = self._servico_web_scraping_rss.abrir_conexao()
             rss_result: R1 = self._servico_web_scraping_rss.obter_dados(dados=dados_rss)
