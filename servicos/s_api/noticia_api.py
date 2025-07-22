@@ -1,6 +1,8 @@
 import datetime
 import json
 from types import SimpleNamespace
+from typing import Union, Tuple
+
 from config.config import Config
 from models.noticia import Noticia
 from servicos.s_api.inoticia_api import INoticiaApi
@@ -75,8 +77,7 @@ class NoticiaAPI(INoticiaApi):
             logger.error(f'Erro de requisição {e}')
             exit()
 
-
-    def consultar_dados_id(self, id_noticia) -> Noticia | str:
+    def consultar_dados_id(self, id_noticia) -> Union[Tuple[Noticia, bool], bool]:
         """
         Método para consultar a no
         :param id_noticia: id da noticia
@@ -84,23 +85,17 @@ class NoticiaAPI(INoticiaApi):
         :return: A noticia
         :rtype: Noticia | str
         """
-        url =f'{self.__URL_API}/noticias/{id_noticia}'
+        url = f'{self.__URL_API}/noticias/{id_noticia}'
         self.__garantir_token()
         token = self.__variaveis.token
         self.__header['Authorization'] = token
         response = requests.get(url, headers=self.__header, )
-        if response.status_code == '200':
-            return Noticia(**response.json())
-        return f'Noticia de id {id_noticia} não foi encontrada'
-
-
-
-
-
+        if response.status_code == 200:
+            return Noticia(**response.json()), True
+        return False
 
 
 if __name__ == '__main__':
-
     noticia_api = NoticiaAPI()
     noticia = noticia_api.consultar_dados_id(id_noticia='z')
     print(noticia)

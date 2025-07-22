@@ -1,4 +1,6 @@
 from abc import abstractmethod, ABC
+from typing import Union, Tuple
+
 from models.noticia import Noticia
 
 
@@ -13,7 +15,7 @@ class INoticiaApi(ABC):
         pass
 
     @abstractmethod
-    def consultar_dados_id(self, id_noticia) -> Noticia| str:
+    def consultar_dados_id(self, id_noticia) -> Union[Tuple[Noticia, bool], bool]:
         pass
 
     def realizar_login(self):
