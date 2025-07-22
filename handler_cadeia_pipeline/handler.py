@@ -6,14 +6,13 @@ from utils.log_pipeline import logger
 
 class Handler(ABC):
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._next_handler: Optional['Handler'] = None
 
     def set_next(self, hander: "Handler") -> "Handler":
         self._next_handler = hander
         return hander
 
-    @abstractmethod
     def handle(self, context: PipelineContext) -> None:
         logger.info(f'{self.__class__.__name__} -> Iniciando web scraping')
         if self.executar_processo(context):
