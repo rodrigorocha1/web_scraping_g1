@@ -15,3 +15,6 @@ class INoticiaApi(ABC):
     @abstractmethod
     def consultar_dados_id(self, id_noticia) -> Noticia:
         pass
+
+    def realizar_login(self):
+        raise NotImplementedError

@@ -1,9 +1,11 @@
+import datetime
 import json
-
+from types import SimpleNamespace
 from config.config import Config
 from models.noticia import Noticia
 from servicos.s_api.inoticia_api import INoticiaApi
 import requests
+from utils.log_pipeline import logger
 
 
 class NoticiaAPI(INoticiaApi):
@@ -13,9 +15,11 @@ class NoticiaAPI(INoticiaApi):
         self.__USER_API = Config.USER_API
         self.__SENHA_API = Config.SENHA_API
         self.__ACCEPT = Config.CONTENT_TYPE
-        self.__HEADER = {
+        self.__header = {
             'accept': self.__ACCEPT
         }
+        self.__variaveis = SimpleNamespace()
+        self.__variaveis.token = None
 
     def checar_conexcao(self) -> bool:
         """
@@ -24,12 +28,19 @@ class NoticiaAPI(INoticiaApi):
         :rtype: bool
         """
         url = self.__URL_API + '/health'
-        response = requests.get(url, headers=self.__HEADER, timeout=10)
+        response = requests.get(url, headers=self.__header, timeout=10)
         if response.status_code == 200:
             return True
         return False
 
-    def __realizar_login(self):
+    def __verificar_token_valido(self) -> bool:
+        return self.__variaveis.token is not None
+
+    def __garantir_token(self):
+        if not self.__verificar_token_valido():
+            self.realizar_login()
+
+    def realizar_login(self):
         url = self.__URL_API + '/login'
         payload = json.dumps(
             {
@@ -37,8 +48,8 @@ class NoticiaAPI(INoticiaApi):
                 "senha": self.__SENHA_API
             }
         )
-        response = requests.post(url=url, headers=self.__HEADER, timeout=10, data=payload)
-        return response.json()['token']
+        response = requests.post(url=url, headers=self.__header, timeout=10, data=payload)
+        self.__variaveis.token = response.json()['token']
 
     def salvar_dados(self, noticia: Noticia):
         """
@@ -46,21 +57,59 @@ class NoticiaAPI(INoticiaApi):
         :param noticia: recebe a noticia
         :type noticia: Noticia
         """
-        pass
+        noticia_dict = noticia.__dict__.copy()
+
+        if isinstance(noticia_dict.get('data_hora'), datetime.datetime):
+            noticia_dict['data_hora'] = noticia_dict['data_hora'].isoformat()
+        payload = json.dumps(noticia)
+        self.__garantir_token()
+        token = self.__variaveis.token
+        self.__header['Authorization'] = token
+
+        url = self.__URL_API + '/noticias'
+        try:
+            response = requests.post(url=url, headers=self.__header, data=payload)
+            print(response.status_code)
+            print(response.json())
+        except requests.RequestException as e:
+            logger.error(f'Erro de requisição {e}')
+            exit()
+
 
     def consultar_dados_id(self, id_noticia) -> Noticia:
         """
         Método para consultar a no
-        :param id_noticia:
-        :type id_noticia:
-        :return:
-        :rtype:
+        :param id_noticia: id da noticia
+        :type id_noticia: st
+        :return: A noticia
+        :rtype: Noticia
         """
-        pass
+        url =f'{self.__URL_API}/noticias/{id_noticia}'
+        self.__garantir_token()
+        token = self.__variaveis.token
+        self.__header['Authorization'] = token
+        response = requests.get(url, headers=self.__header, )
+        noticia = Noticia(**response.json())
+        return noticia
+
+
+
+
+
 
 
 if __name__ == '__main__':
+
     noticia_api = NoticiaAPI()
-    print(noticia_api.check_conexcao())
-    a= noticia_api.realizar_login()
-    print(a)
+    noticia = noticia_api.consultar_dados_id(id_noticia='1')
+    print(noticia)
+    # for i in range(0, 6):
+    #     noticia = Noticia(
+    #         id_noticia=f'{str(i)}',
+    #         data_hora=datetime.datetime.now(),
+    #         titulo='a',
+    #         subtitulo='a',
+    #         texto='a',
+    #         autor='a'
+    #     )
+    #     noticia_api.salvar_dados(noticia=noticia)
