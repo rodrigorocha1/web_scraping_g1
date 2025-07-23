@@ -9,7 +9,7 @@ from servicos.manipulador.arquivo_docx import ArquivoDOCX
 from servicos.s_api.noticia_api import NoticiaAPI
 from handler_cadeia_pipeline.checarconexaohandler import ChecarConexaoHandler
 from bs4 import BeautifulSoup
-from typing import Generator, Dict, Any, List
+from typing import Generator, Dict, Any
 from models.noticia import Noticia
 
 rss_service = WebScrapingBs4G1Rss(url="https://g1.globo.com/rss/g1/sp/ribeirao-preto-franca")
