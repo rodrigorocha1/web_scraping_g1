@@ -1,5 +1,5 @@
 from context.pipeline_context import PipelineContext
-from handler_cadeia_pipeline.obterdadosg1handler import ObterDadosG1Handler
+from handler_cadeia_pipeline.obternoticiag1handler import ObterUrlG1Handler
 from handler_cadeia_pipeline.obterrsshandler import ObterRSSHandler
 from servicos.extracao.webscrapingbs4g1rss import WebScrapingBs4G1Rss
 from servicos.extracao.webscrapingsiteg1 import WebScrapingG1
@@ -22,7 +22,7 @@ p2 = ObterRSSHandler[BeautifulSoup, Generator[Dict[str, Any], None, None]](
         url="https://g1.globo.com/rss/g1/sp/ribeirao-preto-franca"
     )
 )
-p3 = ObterDadosG1Handler[BeautifulSoup, Noticia](
+p3 = ObterUrlG1Handler[BeautifulSoup, Noticia](
     web_scraping_g1=WebScrapingG1(
         url=None,
         parse='html.parser')
