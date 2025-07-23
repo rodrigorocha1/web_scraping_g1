@@ -2,8 +2,7 @@ from typing import Optional, Generic, TypeVar, List
 from servicos.s_api.inoticia_api import INoticiaApi
 
 R1 = TypeVar('R1')
-R2 = TypeVar('R2')
-R3 = TypeVar('R3')
+
 
 
 class PipelineContext(Generic[R1]):
