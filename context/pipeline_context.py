@@ -7,8 +7,8 @@ R1 = TypeVar('R1')
 
 class PipelineContext(Generic[R1]):
 
-    def __init__(self, api: INoticiaApi, noticia: Noticia):
+    def __init__(self, api: INoticiaApi):
         self.api = api
         self.rss: Optional[R1] = None
-        self.url_noticia_nao_cadastrada: Noticia = noticia
+        self.url_noticia_g1_nao_cadastrada: List[Noticia] = []
         self.url_noticia_g1: List[Tuple[str, Noticia]] = []
