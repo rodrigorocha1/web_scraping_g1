@@ -14,7 +14,7 @@ rss_service = WebScrapingBs4G1Rss(url="https://g1.globo.com/rss/g1/sp/ribeirao-p
 g1_service = WebScrapingG1(url=None, parse="html.parser")
 arquivo = ArquivoDOCX()
 noticia_api = NoticiaAPI()
-contexto = PipelineContext[Generator[Dict[str, Any], None, None], str](api=NoticiaAPI())
+contexto = PipelineContext[Generator[Dict[str, Any], None, None],](api=NoticiaAPI())
 
 p1 = ChecarConexaoHandler(noticia=noticia_api)
 p2 = ObterRSSHandler[BeautifulSoup, Generator[Dict[str, Any], None, None]](
