@@ -1,6 +1,7 @@
 from context.pipeline_context import PipelineContext
 from handler_cadeia_pipeline.obternoticiag1handler import ObterUrlG1Handler
 from handler_cadeia_pipeline.obterrsshandler import ObterRSSHandler
+from handler_cadeia_pipeline.processar_noticia_handler import ProcessarNoticiaHandler
 from handler_cadeia_pipeline.verificarnoticiag1cadastadrahandler import VerificarNoticiaCadastradaHandler
 from servicos.extracao.webscrapingbs4g1rss import WebScrapingBs4G1Rss
 from servicos.extracao.webscrapingsiteg1 import WebScrapingG1
@@ -34,7 +35,12 @@ p4 = VerificarNoticiaCadastradaHandler(
     api_noticia=noticia_api
 )
 
+p5 = ProcessarNoticiaHandler(
+    api_noticia=NoticiaAPI()
+)
+
 p1.set_next(p2) \
     .set_next(p3) \
-    .set_next(p4)
+    .set_next(p4) \
+    .set_next(p5)
 p1.handle(contexto)

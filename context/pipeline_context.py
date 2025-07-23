@@ -10,5 +10,5 @@ class PipelineContext(Generic[R1]):
     def __init__(self, api: INoticiaApi):
         self.api = api
         self.rss: Optional[R1] = None
-        self.url_noticia_g1_nao_cadastrada: List[Noticia] = []
-        self.url_noticia_g1: List[Tuple[str, Noticia]] = []
+        self.noticia_g1_nao_cadastrada: List[Tuple[str, Noticia]] = []
+        self.noticia_g1: List[Tuple[str, Noticia]] = []

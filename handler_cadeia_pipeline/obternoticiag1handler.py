@@ -24,6 +24,6 @@ class ObterUrlG1Handler(Handler, Generic[SWB, RTN]):
                     if dado_g1:
                         noticia = self._servico_web_scraping_g1.obter_dados(dados=dado_g1)
                         if isinstance(noticia, Noticia):
-                            context.url_noticia_g1_nao_cadastrada.append(noticia)
+                            context.noticia_g1.append((dado['url_rss'] ,noticia))
             return True
         return False
