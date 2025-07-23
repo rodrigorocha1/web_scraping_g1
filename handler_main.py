@@ -36,7 +36,8 @@ p4 = VerificarNoticiaCadastradaHandler(
 )
 
 p5 = ProcessarNoticiaHandler(
-    api_noticia=NoticiaAPI()
+    api_noticia=NoticiaAPI(),
+    arquivo=ArquivoDOCX()
 )
 
 p1.set_next(p2) \
