@@ -5,12 +5,12 @@ from utils.log_pipeline import logger
 
 
 class ChecarConexaoHandler(Handler):
-    def __init__(self, noticia: INoticiaApi):
+    def __init__(self, api_noticia: INoticiaApi):
         super().__init__()
-        self._noticia_api = noticia
+        self._api_noticia = api_noticia
 
     def executar_processo(self, context: PipelineContext) -> bool:
-        conexao = self._noticia_api.checar_conexao()
+        conexao = self._api_noticia.checar_conexao()
         if conexao:
             logger.info('Conexão API realizada com sucesso')
             return True
