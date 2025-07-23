@@ -1,6 +1,7 @@
 from context.pipeline_context import PipelineContext
 from handler_cadeia_pipeline.obternoticiag1handler import ObterUrlG1Handler
 from handler_cadeia_pipeline.obterrsshandler import ObterRSSHandler
+from handler_cadeia_pipeline.verificarnoticiag1cadastadrahandler import VerificarNoticiaCadastradaHandler
 from servicos.extracao.webscrapingbs4g1rss import WebScrapingBs4G1Rss
 from servicos.extracao.webscrapingsiteg1 import WebScrapingG1
 from servicos.manipulador.arquivo_docx import ArquivoDOCX
@@ -14,7 +15,17 @@ rss_service = WebScrapingBs4G1Rss(url="https://g1.globo.com/rss/g1/sp/ribeirao-p
 g1_service = WebScrapingG1(url=None, parse="html.parser")
 arquivo = ArquivoDOCX()
 noticia_api = NoticiaAPI()
-contexto = PipelineContext[Generator[Dict[str, Any], None, None],](api=NoticiaAPI())
+
+noticia_vazia = Noticia(
+    id_noticia="",
+    titulo="",
+    subtitulo="",
+    texto="",
+    autor="",
+    data_hora=None  # Campo opcional
+)
+
+contexto = PipelineContext[Generator[Dict[str, Any], None, None]](api=NoticiaAPI(), noticia=noticia_vazia)
 
 p1 = ChecarConexaoHandler(api_noticia=noticia_api)
 p2 = ObterRSSHandler[BeautifulSoup, Generator[Dict[str, Any], None, None]](
@@ -28,7 +39,11 @@ p3 = ObterUrlG1Handler[BeautifulSoup, Noticia](
         parse='html.parser')
     ,
 )
+p4 = VerificarNoticiaCadastradaHandler(
+    api_noticia=noticia_api
+)
 
 p1.set_next(p2) \
-    .set_next(p3)
+    .set_next(p3) \
+    .set_next(p4)
 p1.handle(contexto)

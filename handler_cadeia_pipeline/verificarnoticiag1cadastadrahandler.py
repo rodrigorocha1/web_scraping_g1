@@ -15,10 +15,11 @@ class VerificarNoticiaCadastradaHandler(Handler):
     def executar_processo(self, context: PipelineContext) -> bool:
         try:
             for url in context.url_noticia_g1:
-                id_noticia = hashlib.md5(url.encode('utf-8')).hexdigest()
+
+                id_noticia = hashlib.md5(url[0].encode('utf-8')).hexdigest()
                 id_noticia_api = self._api_noticia.consultar_dados_id(id_noticia=id_noticia)
                 if not isinstance(id_noticia_api, Tuple):
-                    context.url_noticia_nao_cadastrada.append(url)
+                    context.url_noticia_nao_cadastrada.append(url[1])
             return True
         except Exception:
             return False
