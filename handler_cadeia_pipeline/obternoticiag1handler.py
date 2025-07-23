@@ -21,6 +21,5 @@ class ObterUrlG1Handler(Handler, Generic[SWB, RTN]):
                 if isinstance(dado, dict) and dado['url_rss'] is not None :
                     url_g1 = dado['url_rss']
                     context.url_noticia_g1.append(url_g1)
-
             return True
         return False
