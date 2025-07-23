@@ -16,7 +16,7 @@ arquivo = ArquivoDOCX()
 noticia_api = NoticiaAPI()
 contexto = PipelineContext[Generator[Dict[str, Any], None, None],](api=NoticiaAPI())
 
-p1 = ChecarConexaoHandler(noticia=noticia_api)
+p1 = ChecarConexaoHandler(api_noticia=noticia_api)
 p2 = ObterRSSHandler[BeautifulSoup, Generator[Dict[str, Any], None, None]](
     servico_webscraping=WebScrapingBs4G1Rss(
         url="https://g1.globo.com/rss/g1/sp/ribeirao-preto-franca"
