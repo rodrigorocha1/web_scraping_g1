@@ -21,15 +21,10 @@ contexto = PipelineContext[Generator[Dict[str, Any], None, None]](api=NoticiaAPI
 
 p1 = ChecarConexaoHandler(api_noticia=noticia_api)
 p2 = ObterRSSHandler[BeautifulSoup, Generator[Dict[str, Any], None, None]](
-    servico_webscraping=WebScrapingBs4G1Rss(
-        url="https://g1.globo.com/rss/g1/sp/ribeirao-preto-franca"
-    )
+    servico_webscraping=rss_service
 )
 p3 = ObterUrlG1Handler[BeautifulSoup, Noticia](
-    web_scraping_g1=WebScrapingG1(
-        url=None,
-        parse='html.parser')
-    ,
+    web_scraping_g1=g1_service
 )
 p4 = VerificarNoticiaCadastradaHandler(
     api_noticia=noticia_api
