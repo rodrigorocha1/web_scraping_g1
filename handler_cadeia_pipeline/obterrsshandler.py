@@ -7,7 +7,7 @@ SWB = TypeVar('SWB')
 RTN = TypeVar('RTN')
 
 
-class ObterRSSHandles(Handler, Generic[SWB, RTN]):
+class ObterRSSHandler(Handler, Generic[SWB, RTN]):
 
     def __init__(self, servico_webscraping: IWebScapingBase[SWB, RTN]):
         super().__init__()
