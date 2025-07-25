@@ -1,6 +1,6 @@
 import logging
 from typing import Optional, TypeVar
-from abc import abstractmethod
+from abc import abstractmethod, ABC
 import requests
 from servicos.extracao.iwebscrapingbase import IWebScapingBase
 from bs4 import BeautifulSoup
@@ -12,7 +12,7 @@ from utils.log_pipeline import logger
 U = TypeVar('U')
 
 
-class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U]):
+class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U], ABC):
 
     def __init__(self, url: Optional[str], parse: str):
         """
@@ -72,27 +72,33 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U]):
                 return None
 
         except HTTPError as http_err:
-            logger.error(f"Erro HTTP ({response.status_code}): {http_err} - Pipeline fechado",  extra={'status_code': response.status_code})
+            logger.error(f"Erro HTTP ({response.status_code}): {http_err} - Pipeline fechado",
+                         extra={'status_code': response.status_code})
             return None
         except ConnectionError:
-            logger.error(f'Erro de conexão na url {self._url} - Pipeline fechado',  extra={'status_code': response.status_code})
+            logger.error(f'Erro de conexão na url {self._url} - Pipeline fechado',
+                         extra={'status_code': response.status_code})
             return None
         except ConnectTimeout:
-            logger.error(f'Tempo de conexão excedido url {self._url} - Pipeline fechado ',  extra={'status_code': response.status_code})
+            logger.error(f'Tempo de conexão excedido url {self._url} - Pipeline fechado ',
+                         extra={'status_code': response.status_code})
             return None
         except ReadTimeout:
-            logging.error(f"Tempo de leitura excedido url {self._url} - Pipeline fechado",  extra={'status_code': response.status_code})
+            logging.error(f"Tempo de leitura excedido url {self._url} - Pipeline fechado",
+                          extra={'status_code': response.status_code})
             return None
         except TooManyRedirects:
-            logging.error("Redirecionamentos em excesso detectados. url {self._url} - Pipeline fechado",  extra={'status_code': response.status_code})
+            logging.error("Redirecionamentos em excesso detectados. url {self._url} - Pipeline fechado",
+                          extra={'status_code': response.status_code})
             return None
         except RequestException as req_err:
-            logging.error(f"Erro de requisição: {req_err} url {self._url} - Pipeline fechado",  extra={'status_code': response.status_code})
+            logging.error(f"Erro de requisição: {req_err} url {self._url} - Pipeline fechado",
+                          extra={'status_code': response.status_code})
             return None
         except Exception as e:
-            logging.error(f"Erro inesperado: {e} url {self._url} - Pipeline fechado",  extra={'status_code': response.status_code})
+            logging.error(f"Erro inesperado: {e} url {self._url} - Pipeline fechado",
+                          extra={'status_code': response.status_code})
             return None
-
 
     @abstractmethod
     def obter_dados(self, dados: BeautifulSoup) -> U:
