@@ -7,6 +7,7 @@ from config.config import Config
 from models.noticia import Noticia
 from servicos.s_api.inoticia_api import INoticiaApi
 import requests
+import logging
 
 from utils.db_handler import DBHandler
 
