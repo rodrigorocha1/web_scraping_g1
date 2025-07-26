@@ -47,10 +47,11 @@ class DBHandler(logging.Handler):
         timestamp = datetime.fromtimestamp(record.created).strftime("%Y-%m-%d %H:%M:%S")
         status_code = getattr(record, 'status_code', None)
         mensagem_de_excecao_tecnica = getattr(record, 'mensagem_de_excecao_tecnica', None)
+        requisicao = getattr(record, 'requisicao', None)
         url = getattr(record, 'url', None)
         log_entry = self.format(record)
         self.cursor.execute(
-            'INSERT INTO logs VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'INSERT INTO logs VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             (
                 timestamp,
                 record.levelname,
@@ -63,6 +64,7 @@ class DBHandler(logging.Handler):
                 record.lineno,
                 url,
                 mensagem_de_excecao_tecnica,
+                requisicao,
                 status_code
             )
         )

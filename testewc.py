@@ -1,25 +1,38 @@
-from docx import Document
-from docx.enum.text import WD_ALIGN_PARAGRAPH
-import os
-from models.noticia import Noticia
-from datetime import datetime
-from servicos.manipulador.arquivo_docx import ArquivoDOCX
+import requests
+import json
 
-noticia_exemplo = Noticia(
-    id_noticia='1',
-    titulo="Tecnologia Revoluciona o Mercado em 2025",
-    subtitulo="Inovações disruptivas transformam indústrias ao redor do mundo",
-    texto=(
-        "O ano de 2025 está sendo marcado por avanços tecnológicos sem precedentes. "
-        "Inteligência artificial, automação e tecnologias verdes estão mudando a forma como as empresas operam. "
-        "Especialistas afirmam que essas inovações podem impulsionar o crescimento econômico global e criar milhões de empregos."
-    ),
-    autor="Rodrigo Rocha",
-    data_hora=datetime.now()
-)
-print(noticia_exemplo)
+url = "http://127.0.0.1:8000/login"
 
-arquivo_docx = ArquivoDOCX()
-arquivo_docx.nome_arquivo = 'teste.docx'
-arquivo_docx.noticia = noticia_exemplo
-arquivo_docx.gerar_documento()
+payload = {
+    "username": "rodrigo",
+    "senha": "12346"
+}
+headers = {
+    'Content-Type': 'application/json'
+}
+
+try:
+    response = requests.post(url, headers=headers, json=payload, timeout=5)
+
+    # Levanta exceção para status codes 4xx/5xx
+    response.raise_for_status()
+
+    try:
+        data = response.json()
+        print("Resposta JSON:", data)
+    except ValueError:
+        print("A resposta não está em formato JSON.")
+        print("Resposta bruta:", response.text)
+
+except requests.exceptions.ConnectionError as e:
+
+    print(f"Erro: Não foi possível conectar ao servidor.{e}")
+    print(f'{response.content}')
+except requests.exceptions.Timeout:
+    print("Erro: Tempo limite da requisição excedido.")
+except requests.exceptions.HTTPError as http_err:
+    print(f"Erro HTTP: {http_err} - Status Code: {response.status_code}")
+    print("Resposta do servidor:", response.text)
+except requests.exceptions.RequestException as e:
+    print(f"Ocorreu um erro inesperado: {e}")
+
