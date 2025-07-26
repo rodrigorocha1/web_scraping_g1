@@ -31,9 +31,12 @@ class NoticiaAPI(INoticiaApi):
         """
         url = self.__URL_API + '/health'
         response = requests.get(url, headers=self.__header, timeout=10)
-        if response.status_code == 200:
-            return True
-        return False
+        try:
+            if response.status_code == 200:
+                return True
+            return False
+        except Exception:
+            return False
 
     def __verificar_token_valido(self) -> bool:
         return self.__variaveis.token is not None
@@ -76,6 +79,8 @@ class NoticiaAPI(INoticiaApi):
         except requests.RequestException as e:
             logger.error(f'Erro de requisição {e}')
             exit()
+        except Exception as e:
+            logger.warning(f'Erro inesperado: {e}')
 
     def consultar_dados_id(self, id_noticia) -> Union[Tuple[Noticia, bool], bool]:
         """
@@ -90,9 +95,12 @@ class NoticiaAPI(INoticiaApi):
         token = self.__variaveis.token
         self.__header['Authorization'] = token
         response = requests.get(url, headers=self.__header, )
-        if response.status_code == 200:
-            return Noticia(**response.json()), True
-        return False
+        try:
+            if response.status_code == 200:
+                return Noticia(**response.json()), True
+            return False
+        except:
+            return False
 
 
 if __name__ == '__main__':
