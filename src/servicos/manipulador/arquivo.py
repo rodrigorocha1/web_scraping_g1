@@ -57,9 +57,53 @@ class Arquivo(ABC):
         self.__noticia = nova_noticia
 
     @abstractmethod
-    def gerar_documento(self) -> None:
+    def _gerar_documento(self) -> None:
         """
         Método que vai gerar o documento
+        :return: Nada
+        :rtype: None
+        """
+        pass
+
+    @abstractmethod
+    def _formatar_titulo(self):
+        """
+        Método para formatar o título
+        :return: Nada
+        :rtype: None
+        """
+
+    @abstractmethod
+    def _formatar_subtitulo(self):
+        """
+        Método para formatar o subtítulo
+        :return: Nada
+        :rtype: None
+        """
+        pass
+
+    @abstractmethod
+    def _formatar_autor_data(self):
+        """
+                Método para formatar o subtítulo
+                :return: Nada
+                :rtype: None
+                """
+        pass
+
+    @abstractmethod
+    def _formatar_texto(self):
+        """
+        Método para formatar texto
+        :return: nada
+        :rtype: None
+        """
+        pass
+
+    @abstractmethod
+    def _gerar_documento(self):
+        """
+        Método parta gerar o arquivo docx
         :return: Nada
         :rtype: None
         """

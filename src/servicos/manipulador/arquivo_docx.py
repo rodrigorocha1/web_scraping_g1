@@ -5,6 +5,8 @@ from docx.shared import RGBColor, Pt
 
 
 class ArquivoDOCX(Arquivo):
+
+
     def __init__(self):
         super().__init__()
 
@@ -73,7 +75,8 @@ class ArquivoDOCX(Arquivo):
             run.font.size = Pt(12)
         self.__documento.add_paragraph('')
 
-    def gerar_documento(self):
+    def _gerar_documento(self) -> None:
+
         """
         Método parta gerar o arquivo docx
         :return: Nada
