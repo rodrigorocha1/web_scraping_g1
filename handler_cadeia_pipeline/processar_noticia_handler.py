@@ -19,7 +19,6 @@ class ProcessarNoticiaHandler(Handler):
 
         noticias_g1 = context.noticia_g1_nao_cadastrada
         for noticia_g1 in noticias_g1:
-            print(f'Dentro da classe ProcessarNoticiaHandler {noticia_g1}')
             url_g1, noticia = noticia_g1
             nome_arquivo = ''.join(
                 url_g1.split('.')[-2].split('/')[-1].replace('-', '_') + '.docx'
