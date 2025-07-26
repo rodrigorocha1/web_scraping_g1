@@ -32,7 +32,7 @@ class VerificarNoticiaCadastradaHandler(Handler):
                     else:
                         logger.warning(f'log: Notícia já cadastrada: url: {url[0]} Tílulo da noticia: {url[1].titulo}')
                 else:
-                    logger.debug(f'A url não apesenta texto', extra={
+                    logger.debug(f'A url não apesenta texto da noticia', extra={
                         'URL': url[0]
                     })
 
