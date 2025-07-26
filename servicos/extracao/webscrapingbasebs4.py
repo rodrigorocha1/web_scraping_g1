@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from tratamento.tratamento import Tratamento
 from requests.exceptions import HTTPError, ConnectionError, ConnectTimeout, ReadTimeout, TooManyRedirects, \
     RequestException
-from utils.log_pipeline import logger
+
 
 U = TypeVar('U')
 

@@ -7,7 +7,7 @@ from config.config import Config
 from models.noticia import Noticia
 from servicos.s_api.inoticia_api import INoticiaApi
 import requests
-from utils.log_pipeline import logger
+
 
 
 class NoticiaAPI(INoticiaApi):

@@ -20,6 +20,8 @@ class VerificarNoticiaCadastradaHandler(Handler):
                 id_noticia_api = self._api_noticia.consultar_dados_id(id_noticia=id_noticia)
                 if not isinstance(id_noticia_api, Tuple):
                     context.noticia_g1_nao_cadastrada.append(url)
-            return True
+                return True
+
+            return False
         except Exception:
             return False

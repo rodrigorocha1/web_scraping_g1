@@ -1,7 +1,13 @@
 from handler_cadeia_pipeline.handler import Handler
 from servicos.s_api.inoticia_api import INoticiaApi
 from context.pipeline_context import PipelineContext
-from utils.log_pipeline import logger
+from utils.db_handler import DBHandler
+import logging
+
+FORMATO = '%(asctime)s %(filename)s %(funcName)s'
+db_handler = DBHandler(nome_pacote='ChecarConexaoHandler', formato_log=FORMATO, debug=logging.DEBUG)
+
+logger = db_handler.loger
 
 
 class ChecarConexaoHandler(Handler):
@@ -10,6 +16,7 @@ class ChecarConexaoHandler(Handler):
         self._api_noticia = api_noticia
 
     def executar_processo(self, context: PipelineContext) -> bool:
+        print('Executar processeo checagem')
         conexao = self._api_noticia.checar_conexao()
         if conexao:
             logger.info('Conexão API realizada com sucesso')
