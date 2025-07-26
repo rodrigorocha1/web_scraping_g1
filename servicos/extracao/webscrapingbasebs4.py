@@ -64,46 +64,100 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U], ABC):
         try:
             if self._url is None:
                 raise ValueError("URL não pode ser None")
-            logger.info(f'Conectando na URL {self._url}')
+            logger.info(
+                f'Conectando na URL ',
+                extra={'url': self._url}
+            )
             response = requests.get(url=self._url)
             response.raise_for_status()
             conteudo_response = response.content
-            logger.info(f'Sucesso ao conectar na url {self._url}', extra={'status_code': response.status_code})
+            logger.info(
+                f'Sucesso ao conectar ',
+                extra={
+                    'url': self._url,
+                    'status_code': response.status_code
+                }
+            )
             try:
                 soup = BeautifulSoup(conteudo_response, self._parse)
                 return soup
 
             except Exception as e:
-                logger.error(f'Erro inesperado {e}')
+                logger.error(
+                    msg=f'Erro inesperado {e}',
+                    extra={
+                        'url': self._url,
+                        'status_code': response.status_code
+                    }
+                )
                 return None
 
         except HTTPError as http_err:
-            logger.error(f"Erro HTTP ({response.status_code}): {http_err} - Pipeline fechado",
-                         extra={'status_code': response.status_code})
+            logger.error(
+                msg=f"Erro HTTP  - Pipeline fechado",
+                extra={
+                    'url': self._url,
+                    'status_code': response.status_code,
+                    'mensagem_de_execao_tecnica': http_err
+
+                }
+            )
             return None
         except ConnectionError:
-            logger.error(f'Erro de conexão na url {self._url} - Pipeline fechado',
-                         extra={'status_code': response.status_code})
+            logger.error(
+                msg=f'Erro de conexão - Pipeline fechado',
+                extra={
+                    'url': self._url,
+                    'status_code': response.status_code
+                }
+            )
             return None
         except ConnectTimeout:
-            logger.error(f'Tempo de conexão excedido url {self._url} - Pipeline fechado ',
-                         extra={'status_code': response.status_code})
+            logger.error(
+                msg=f'Tempo de conexão excedido url - Pipeline fechado ',
+                extra={
+                    'url': self._url,
+                    'status_code': response.status_code
+                }
+            )
             return None
         except ReadTimeout:
-            logging.error(f"Tempo de leitura excedido url {self._url} - Pipeline fechado",
-                          extra={'status_code': response.status_code})
+            logging.error(
+                msg=f"Tempo de leitura excedido url - Pipeline fechado",
+                extra={
+                    'status_code': response.status_code,
+                    'url': self._url
+                }
+            )
             return None
         except TooManyRedirects:
-            logging.error("Redirecionamentos em excesso detectados. url {self._url} - Pipeline fechado",
-                          extra={'status_code': response.status_code})
+            logging.error(
+                msg="Redirecionamentos em excesso detectados. url {self._url} - Pipeline fechado",
+                extra={
+                    'url': self._url,
+                    'status_code': response.status_code
+                }
+            )
             return None
         except RequestException as req_err:
-            logging.error(f"Erro de requisição: {req_err} url {self._url} - Pipeline fechado",
-                          extra={'status_code': response.status_code})
+            logging.error(
+                msg=f"Erro de requisição: url - Pipeline fechado",
+                extra={
+                    'url': self._url,
+                    'status_code': response.status_code,
+                    'mensagem_de_execao_tecnica': req_err
+                }
+            )
             return None
         except Exception as e:
-            logging.error(f"Erro inesperado: {e} url {self._url} - Pipeline fechado",
-                          extra={'status_code': response.status_code})
+            logging.error(
+                msg=f"Erro inesperado: url  - Pipeline fechado",
+                extra={
+                    'url': self._url,
+                    'status_code': response.status_code,
+                    'mensagem_de_execao_tecnica': e
+                }
+            )
             return None
 
     @abstractmethod
