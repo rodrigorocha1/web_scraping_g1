@@ -70,13 +70,28 @@ class NoticiaAPI(INoticiaApi):
             return False
 
     def __verificar_token_valido(self) -> bool:
+        """
+        Método para verificar o token válido
+        :return: Verdadeiro so o token for valido
+        :rtype: bool
+        """
         return self.__variaveis.token is not None
 
     def __garantir_token(self):
+        """
+        Método que valida token
+        :return: Nada
+        :rtype: None
+        """
         if not self.__verificar_token_valido():
             self.realizar_login()
 
     def realizar_login(self):
+        """
+        Método para realizar o login na api
+        :return: Nada
+        :rtype: None
+        """
         url = self.__URL_API + '/login'
         payload = json.dumps(
             {

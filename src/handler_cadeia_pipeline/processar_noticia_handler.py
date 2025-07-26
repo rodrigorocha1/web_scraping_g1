@@ -14,6 +14,14 @@ class ProcessarNoticiaHandler(Handler):
         self._diretorio = 'noticia/'
 
     def executar_processo(self, context: PipelineContext) -> bool:
+        """
+        Método que vai representar o processo,ex: = Processar arquivo
+
+        :param context: contexto do pipeline, váriaveis que seão passadas
+        :type context: PipelineContext
+        :return: Verdadeiro se o processo for executado com sucesso Falso caso contrário
+        :rtype: bool
+        """
         noticias_g1 = context.noticia_g1_nao_cadastrada
         for noticia_g1 in noticias_g1:
             url_g1, noticia = noticia_g1

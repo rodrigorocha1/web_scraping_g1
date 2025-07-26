@@ -51,7 +51,7 @@ class Handler(ABC):
         Método que vai representar o processo,ex: =Checar conexão na api
         :param context: contexto do pipeline, váriaveis que seão passadas
         :type context: PipelineContext
-        :return: Verdadeiro se o processo for execudado com sucesso Falso caso contrário
+        :return: Verdadeiro se o processo for executado com sucesso Falso caso contrário
         :rtype: bool
         """
         pass

@@ -17,6 +17,13 @@ class VerificarNoticiaCadastradaHandler(Handler):
         self._api_noticia = api_noticia
 
     def executar_processo(self, context: PipelineContext) -> bool:
+        """
+        Método que vai representar o processo,ex: Verificar noticia cadastrada
+        :param context: contexto do pipeline, váriaveis que seão passadas
+        :type context: PipelineContext
+        :return: Verdadeiro se o processo for executado com sucesso Falso caso contrário
+        :rtype: bool
+        """
         try:
             for url in context.noticia_g1:
                 if url[1].texto:

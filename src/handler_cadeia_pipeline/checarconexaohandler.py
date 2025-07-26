@@ -1,6 +1,6 @@
 from src.handler_cadeia_pipeline.handler import Handler
 from src.servicos.s_api.inoticia_api import INoticiaApi
-from src.context import PipelineContext
+from src.context.pipeline_context import PipelineContext
 from src.utils.db_handler import DBHandler
 import logging
 

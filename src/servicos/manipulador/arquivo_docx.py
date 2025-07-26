@@ -13,6 +13,11 @@ class ArquivoDOCX(Arquivo):
 
 
     def _formatar_titulo(self):
+        """
+        Método para formatar o título
+        :return: Nada
+        :rtype: None
+        """
         titulo = self.__documento.add_heading(self.noticia.titulo, level=1)
         titulo.alignment = WD_ALIGN_PARAGRAPH.CENTER
         for run in titulo.runs:
@@ -21,6 +26,11 @@ class ArquivoDOCX(Arquivo):
             run.font.bold = True
 
     def _formatar_subtitulo(self):
+        """
+        Método para formatar o subtítulo
+        :return: Nada
+        :rtype: None
+        """
         subtitulo = self.__documento.add_heading(self.noticia.subtitulo, level=2)
         subtitulo.alignment = WD_ALIGN_PARAGRAPH.LEFT
         for run in subtitulo.runs:
@@ -29,6 +39,11 @@ class ArquivoDOCX(Arquivo):
             run.font.italic = True
 
     def _formatar_autor_data(self):
+        """
+        Método para formatar o autor e data
+        :return: Nada
+        :rtype: None
+        """
         data_formatada = (
             self.noticia.data_hora.strftime("%d/%m/%Y %H:%M:%S")
             if self.noticia.data_hora
@@ -46,6 +61,11 @@ class ArquivoDOCX(Arquivo):
             run.font.color.rgb = RGBColor(255, 255, 255)
 
     def _formatar_texto(self):
+        """
+        Método para formatar texto
+        :return: nada
+        :rtype: None
+        """
         p_texto = self.__documento.add_paragraph(self.noticia.texto)
         p_texto.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         for run in p_texto.runs:
@@ -54,6 +74,11 @@ class ArquivoDOCX(Arquivo):
         self.__documento.add_paragraph('')
 
     def gerar_documento(self):
+        """
+        Método parta gerar o arquivo docx
+        :return: Nada
+        :rtype: None
+        """
         self._formatar_titulo()
         self._formatar_subtitulo()
         self._formatar_autor_data()

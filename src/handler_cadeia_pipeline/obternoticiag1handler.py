@@ -15,6 +15,13 @@ class ObterUrlG1Handler(Handler, Generic[SWB, RTN]):
         self._servico_web_scraping_g1 = web_scraping_g1
 
     def executar_processo(self, context: PipelineContext) -> bool:
+        """
+        Método que vai representar o processo,ex: = Conectar url rss
+        :param context: contexto do pipeline, váriaveis que seão passadas
+        :type context: context.pipeline_context.PipelineContext
+        :return: Verdadeiro se o processo for executado com sucesso Falso caso contrário
+        :rtype: bool
+        """
         dados_g1 = context.rss
         if isinstance(dados_g1, Generator):
             for dado in dados_g1:
