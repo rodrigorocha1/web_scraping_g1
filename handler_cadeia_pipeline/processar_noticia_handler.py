@@ -1,5 +1,3 @@
-from typing import TypeVar, Generic
-
 from context.pipeline_context import PipelineContext
 from handler_cadeia_pipeline.handler import Handler
 from servicos.manipulador.arquivo import Arquivo
@@ -16,7 +14,6 @@ class ProcessarNoticiaHandler(Handler):
         self._diretorio = 'noticia/'
 
     def executar_processo(self, context: PipelineContext) -> bool:
-
         noticias_g1 = context.noticia_g1_nao_cadastrada
         for noticia_g1 in noticias_g1:
             url_g1, noticia = noticia_g1
