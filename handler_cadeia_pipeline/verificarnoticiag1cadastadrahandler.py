@@ -8,7 +8,7 @@ from servicos.s_api.inoticia_api import INoticiaApi
 from utils.db_handler import DBHandler
 import logging
 
-FORMATO = '%(asctime)s %(filename)s %(funcName)s'
+FORMATO = '%(asctime)s %(filename)s %(funcName)s - %(message)s'
 db_handler = DBHandler(nome_pacote='ChecarConexaoHandler', formato_log=FORMATO, debug=logging.DEBUG)
 
 logger = db_handler.loger
@@ -25,12 +25,18 @@ class VerificarNoticiaCadastradaHandler(Handler):
 
                 id_noticia = hashlib.md5(url[0].encode('utf-8')).hexdigest()
                 id_noticia_api = self._api_noticia.consultar_dados_id(id_noticia=id_noticia)
-                if not isinstance(id_noticia_api, Tuple):
-                    context.noticia_g1_nao_cadastrada.append(url)
-                else:
-                    logger.info(f'Noticia já cadastrada {url}')
-                return True
 
-            return False
+                if not id_noticia_api:
+                    print('Noticia nova')
+                    # context.noticia_g1_nao_cadastrada.append(url)
+
+                else:
+                    logger.warning(f'log: Notícia já cadastrada: {url}')
+                    print('print: Mensagem do log Notícia já cadastrada')
+
+                    # context.noticia_g1_nao_cadastrada.append(url)
+            return True
+
+
         except Exception:
             return False

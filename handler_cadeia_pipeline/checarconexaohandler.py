@@ -16,7 +16,6 @@ class ChecarConexaoHandler(Handler):
         self._api_noticia = api_noticia
 
     def executar_processo(self, context: PipelineContext) -> bool:
-        print('Executar processeo checagem')
         conexao = self._api_noticia.checar_conexao()
         if conexao:
             logger.info('Conexão API realizada com sucesso')
