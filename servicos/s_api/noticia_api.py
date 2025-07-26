@@ -43,7 +43,12 @@ class NoticiaAPI(INoticiaApi):
                 return True
             return False
         except Exception as e:
-            logger.error(f'Erro inesperado: {e}')
+            logger.error(
+                mensagem='Erro inesperado',
+                extra={
+                    'mensagem_de_execao_tecnica': e
+                }
+            )
             return False
 
     def __verificar_token_valido(self) -> bool:
@@ -85,10 +90,20 @@ class NoticiaAPI(INoticiaApi):
             print(response.status_code)
             print(response.json())
         except requests.RequestException as e:
-            logger.error(f'Erro de requisição {e}')
+            logger.error(
+                msg='Erro de requisição ',
+                extra={
+                    'mensagem_de_execao_tecnica': e
+                }
+            )
             exit()
         except Exception as e:
-            logger.warning(f'Erro inesperado: {e}')
+            logger.warning(
+                msg='Erro de requisição ',
+                extra={
+                    'mensagem_de_execao_tecnica': e
+                }
+            )
 
     def consultar_dados_id(self, id_noticia: str) -> Union[Tuple[Noticia, bool], bool]:
         """
