@@ -35,7 +35,9 @@ class VerificarNoticiaCadastradaHandler(Handler):
                     if not id_noticia_api:
                         context.noticia_g1_nao_cadastrada.append(url)
                     else:
-                        logger.warning(f'log: Notícia já cadastrada: url: {url[0]} Tílulo da noticia: {url[1].titulo}')
+                        logger.warning(f'log: Notícia já cadastrada -> Tílulo da noticia: {url[1].titulo}', extra={
+                        'url': url[0]
+                    })
                 else:
                     logger.debug(f'A url não apesenta texto da noticia', extra={
                         'url': url[0]
