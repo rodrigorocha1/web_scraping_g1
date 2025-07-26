@@ -26,7 +26,6 @@ class DBHandler(logging.Handler):
         timestamp = datetime.fromtimestamp(record.created).strftime("%Y-%m-%d %H:%M:%S")
         status_code = getattr(record, 'status_code', None)
         log_entry = self.format(record)
-        print(log_entry)
         self.cursor.execute(
             'INSERT INTO logs VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
             (timestamp, record.levelname, record.message, record.name, record.filename, record.funcName, record.lineno,
