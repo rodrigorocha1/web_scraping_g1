@@ -82,7 +82,7 @@ class NoticiaAPI(INoticiaApi):
         except Exception as e:
             logger.warning(f'Erro inesperado: {e}')
 
-    def consultar_dados_id(self, id_noticia) -> Union[Tuple[Noticia, bool], bool]:
+    def consultar_dados_id(self, id_noticia: str) -> Union[Tuple[Noticia, bool], bool]:
         """
         Método para consultar a no
         :param id_noticia: id da noticia
