@@ -11,8 +11,8 @@ LogLevel = Literal[0, 10, 20, 30, 40, 50]
 
 class ColorFormatter(logging.Formatter):
     COLORS = {
-        logging.DEBUG: Fore.BLUE,
-        logging.INFO: Fore.GREEN,
+        logging.DEBUG: Fore.CYAN,
+        logging.INFO: Fore.BLUE,
         logging.WARNING: Fore.YELLOW,
         logging.ERROR: Fore.RED,
         logging.CRITICAL: Fore.MAGENTA + Style.BRIGHT
