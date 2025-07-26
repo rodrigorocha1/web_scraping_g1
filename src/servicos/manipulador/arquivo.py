@@ -56,14 +56,7 @@ class Arquivo(ABC):
             raise TypeError("O atributo noticia deve ser uma instância de Noticia ou None")
         self.__noticia = nova_noticia
 
-    @abstractmethod
-    def _gerar_documento(self) -> None:
-        """
-        Método que vai gerar o documento
-        :return: Nada
-        :rtype: None
-        """
-        pass
+
 
     @abstractmethod
     def _formatar_titulo(self):
@@ -101,7 +94,7 @@ class Arquivo(ABC):
         pass
 
     @abstractmethod
-    def _gerar_documento(self):
+    def gerar_documento(self):
         """
         Método parta gerar o arquivo docx
         :return: Nada

@@ -12,7 +12,7 @@ RTN = TypeVar('RTN')
 class ObterUrlG1Handler(Handler, Generic[SWB, RTN]):
     def __init__(self, web_scraping_g1: IWebScapingBase[SWB, RTN]):
         super().__init__()
-        self._servico_web_scraping_g1 = web_scraping_g1
+        self.__servico_web_scraping_g1 = web_scraping_g1
 
     def executar_processo(self, context: PipelineContext) -> bool:
         """
@@ -26,10 +26,10 @@ class ObterUrlG1Handler(Handler, Generic[SWB, RTN]):
         if isinstance(dados_g1, Generator):
             for dado in dados_g1:
                 if isinstance(dado, dict) and dado['url_rss'] is not None:
-                    self._servico_web_scraping_g1.url = dado['url_rss']
-                    dado_g1 = self._servico_web_scraping_g1.abrir_conexao()
+                    self.__servico_web_scraping_g1.url = dado['url_rss']
+                    dado_g1 = self.__servico_web_scraping_g1.abrir_conexao()
                     if dado_g1:
-                        noticia = self._servico_web_scraping_g1.obter_dados(dados=dado_g1)
+                        noticia = self.__servico_web_scraping_g1.obter_dados(dados=dado_g1)
                         if isinstance(noticia, Noticia):
                             context.noticia_g1.append((dado['url_rss'] ,noticia))
             return True

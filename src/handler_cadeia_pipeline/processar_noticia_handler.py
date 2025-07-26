@@ -9,9 +9,9 @@ class ProcessarNoticiaHandler(Handler):
 
     def __init__(self, api_noticia: INoticiaApi, arquivo: Arquivo):
         super().__init__()
-        self._api_noticia = api_noticia
-        self._arquivo = arquivo
-        self._diretorio = 'noticia/'
+        self.__api_noticia = api_noticia
+        self.__arquivo = arquivo
+        self.__diretorio = 'noticia/'
 
     def executar_processo(self, context: PipelineContext) -> bool:
         """
@@ -28,10 +28,10 @@ class ProcessarNoticiaHandler(Handler):
             nome_arquivo = ''.join(
                 url_g1.split('.')[-2].split('/')[-1].replace('-', '_') + '.docx'
             )
-            self._arquivo.nome_arquivo = self._diretorio + nome_arquivo
-            self._arquivo.noticia = noticia
-            self._arquivo.gerar_documento()
-            self._arquivo()
-            self._api_noticia.salvar_dados(noticia=noticia)
+            self.__arquivo.nome_arquivo = self.__diretorio + nome_arquivo
+            self.__arquivo.noticia = noticia
+            self.__arquivo.gerar_documento()
+            self.__arquivo()
+            self.__api_noticia.salvar_dados(noticia=noticia)
 
         return True

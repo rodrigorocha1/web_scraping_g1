@@ -6,13 +6,10 @@ from docx.shared import RGBColor, Pt
 
 class ArquivoDOCX(Arquivo):
 
-
     def __init__(self):
         super().__init__()
 
         self.__documento = Document()
-
-
 
     def _formatar_titulo(self):
         """
@@ -54,8 +51,6 @@ class ArquivoDOCX(Arquivo):
 
         autor_data = f'Por {self.noticia.autor} — {data_formatada}'
 
-
-
         p_meta = self.__documento.add_paragraph(autor_data)
         p_meta.alignment = WD_ALIGN_PARAGRAPH.CENTER
         for run in p_meta.runs:
@@ -75,7 +70,7 @@ class ArquivoDOCX(Arquivo):
             run.font.size = Pt(12)
         self.__documento.add_paragraph('')
 
-    def _gerar_documento(self) -> None:
+    def gerar_documento(self) -> None:
 
         """
         Método parta gerar o arquivo docx
@@ -91,4 +86,3 @@ class ArquivoDOCX(Arquivo):
     def __call__(self):
         """Permite resetar o objeto chamando-o como função."""
         self.__init__()  # reinicializa tudo
-
