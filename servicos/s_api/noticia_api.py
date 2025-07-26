@@ -8,6 +8,12 @@ from models.noticia import Noticia
 from servicos.s_api.inoticia_api import INoticiaApi
 import requests
 
+from utils.db_handler import DBHandler
+
+FORMATO = '%(asctime)s %(filename)s %(funcName)s'
+db_handler = DBHandler(nome_pacote='ChecarConexaoHandler', formato_log=FORMATO, debug=logging.DEBUG)
+
+logger = db_handler.loger
 
 
 class NoticiaAPI(INoticiaApi):
@@ -35,7 +41,8 @@ class NoticiaAPI(INoticiaApi):
             if response.status_code == 200:
                 return True
             return False
-        except Exception:
+        except Exception as e:
+            logger.error(f'Erro inesperado: {e}')
             return False
 
     def __verificar_token_valido(self) -> bool:

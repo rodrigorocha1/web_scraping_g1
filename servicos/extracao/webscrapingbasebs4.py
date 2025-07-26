@@ -8,9 +8,14 @@ from tratamento.tratamento import Tratamento
 from requests.exceptions import HTTPError, ConnectionError, ConnectTimeout, ReadTimeout, TooManyRedirects, \
     RequestException
 
+from utils.db_handler import DBHandler
 
 U = TypeVar('U')
 
+FORMATO = '%(asctime)s %(filename)s %(funcName)s'
+db_handler = DBHandler(nome_pacote='WebScrapingBs4base', formato_log=FORMATO, debug=logging.DEBUG)
+
+logger = db_handler.loger
 
 class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U], ABC):
 
