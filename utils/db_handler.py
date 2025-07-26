@@ -2,9 +2,27 @@ import logging
 import sqlite3
 from datetime import datetime
 import os
+
 from typing import Literal
+from colorama import Fore, Style, init
 
 LogLevel = Literal[0, 10, 20, 30, 40, 50]
+
+
+class ColorFormatter(logging.Formatter):
+    COLORS = {
+        logging.DEBUG: Fore.CYAN,
+        logging.INFO: Fore.GREEN,
+        logging.WARNING: Fore.YELLOW,
+        logging.ERROR: Fore.RED,
+        logging.CRITICAL: Fore.MAGENTA + Style.BRIGHT
+    }
+
+    def format(self, record):
+        log_color = self.COLORS.get(record.levelno, "")
+        message = super().format(record)
+        return f"{log_color}{message}{Style.RESET_ALL}"
+
 
 
 class DBHandler(logging.Handler):
@@ -21,6 +39,10 @@ class DBHandler(logging.Handler):
         self.loger.addHandler(self)
         self.loger.setLevel(debug)
 
+        stream_handler = logging.StreamHandler()
+        color_formatter = ColorFormatter(self.__FORMATO_LOG)
+        stream_handler.setFormatter(color_formatter)
+        self.loger.addHandler(stream_handler)
 
     def emit(self, record):
         timestamp = datetime.fromtimestamp(record.created).strftime("%Y-%m-%d %H:%M:%S")
