@@ -4,7 +4,7 @@ from context.pipeline_context import PipelineContext
 from utils.db_handler import DBHandler
 import logging
 
-FORMATO = '%(asctime)s %(filename)s %(funcName)s'
+FORMATO = '%(asctime)s %(filename)s %(funcName)s  - %(message)s'
 db_handler = DBHandler(nome_pacote='Handler', formato_log=FORMATO, debug=logging.DEBUG)
 
 logger = db_handler.loger

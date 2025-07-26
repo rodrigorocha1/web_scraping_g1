@@ -27,14 +27,10 @@ class VerificarNoticiaCadastradaHandler(Handler):
                 id_noticia_api = self._api_noticia.consultar_dados_id(id_noticia=id_noticia)
 
                 if not id_noticia_api:
-                    print('Noticia nova')
-                    # context.noticia_g1_nao_cadastrada.append(url)
-
+                    context.noticia_g1_nao_cadastrada.append(url)
                 else:
-                    logger.warning(f'log: Notícia já cadastrada: {url}')
-                    print('print: Mensagem do log Notícia já cadastrada')
+                    logger.warning(f'log: Notícia já cadastrada: url: {url[0]} Tílulo da noticia: {url[1].titulo}')
 
-                    # context.noticia_g1_nao_cadastrada.append(url)
             return True
 
 
