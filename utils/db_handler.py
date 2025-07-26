@@ -49,11 +49,17 @@ class DBHandler(logging.Handler):
         mensagem_de_excecao_tecnica = getattr(record, 'mensagem_de_excecao_tecnica', None)
         log_entry = self.format(record)
         self.cursor.execute(
-            'INSERT INTO logs VALUES (?, ?, ?, ?, ?, ?, ?, ?, :)',
+            'INSERT INTO logs VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
             (
-                timestamp, record.levelname, record.message, record.name, record.filename, record.funcName,
+                timestamp,
+                record.levelname,
+                record.message,
+                record.name,
+                record.filename,
+                record.funcName,
                 record.lineno,
-                status_code, mensagem_de_excecao_tecnica)
+                mensagem_de_excecao_tecnica,
+            )
         )
 
         self.conn.commit()
