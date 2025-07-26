@@ -1,15 +1,15 @@
 import hashlib
 from typing import TypeVar, Generic, Generator, Dict, Any, Optional, Union, Iterable
-from servicos.s_api.inoticia_api import INoticiaApi
-from servicos.s_api.noticia_api import NoticiaAPI
+from src.servicos.s_api.inoticia_api import INoticiaApi
+from src.servicos.s_api.noticia_api import NoticiaAPI
 from bs4 import BeautifulSoup
-from servicos.manipulador.arquivo import Arquivo
-from servicos.manipulador.arquivo_docx import ArquivoDOCX
-from models.noticia import Noticia
-from servicos.extracao.iwebscrapingbase import IWebScapingBase
-from servicos.extracao.webscrapingbs4g1rss import WebScrapingBs4G1Rss
-from servicos.extracao.webscrapingsiteg1 import WebScrapingG1
-from utils.log_pipeline import logger
+from src.servicos.manipulador.arquivo import Arquivo
+from src.servicos.manipulador.arquivo_docx import ArquivoDOCX
+from src.models.noticia import Noticia
+from src.servicos.extracao.iwebscrapingbase import IWebScapingBase
+from src.servicos.extracao.webscrapingbs4g1rss import WebScrapingBs4G1Rss
+from src.servicos.extracao.webscrapingsiteg1 import WebScrapingG1
+from src.utils import logger
 
 T1 = TypeVar("T1")
 R1 = TypeVar("R1", bound=Iterable[Dict[str, Any]])

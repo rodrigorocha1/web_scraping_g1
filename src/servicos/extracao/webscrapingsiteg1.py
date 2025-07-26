@@ -1,11 +1,9 @@
 from typing import Optional
-from models.noticia import Noticia
+from src.models.noticia import Noticia
 from bs4 import BeautifulSoup
 import hashlib
-import logging
-from utils.db_handler import DBHandler
 
-from servicos.extracao.webscrapingbasebs4 import WebScrapingBs4base
+from src.servicos.extracao.webscrapingbasebs4 import WebScrapingBs4base
 from datetime import datetime
 
 
@@ -64,7 +62,7 @@ class WebScrapingG1(WebScrapingBs4base[Noticia]):
 
 
 if __name__ == '__main__':
-    from servicos.extracao.iwebscrapingbase import IWebScapingBase
+    from src.servicos.extracao.iwebscrapingbase import IWebScapingBase
 
     if issubclass(WebScrapingG1, IWebScapingBase):
         print('sim')

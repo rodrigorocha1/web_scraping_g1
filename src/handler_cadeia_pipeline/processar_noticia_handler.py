@@ -1,8 +1,8 @@
-from context.pipeline_context import PipelineContext
-from handler_cadeia_pipeline.handler import Handler
-from servicos.manipulador.arquivo import Arquivo
+from src.context.pipeline_context import PipelineContext
+from src.handler_cadeia_pipeline.handler import Handler
+from src.servicos.manipulador.arquivo import Arquivo
 
-from servicos.s_api.inoticia_api import INoticiaApi
+from src.servicos.s_api.inoticia_api import INoticiaApi
 
 
 class ProcessarNoticiaHandler(Handler):

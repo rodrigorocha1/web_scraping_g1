@@ -1,9 +1,9 @@
-from context.pipeline_context import PipelineContext
-from handler_cadeia_pipeline.handler import Handler
+from src.context.pipeline_context import PipelineContext
+from src.handler_cadeia_pipeline.handler import Handler
 from typing import TypeVar, Generic, Generator
 
-from models.noticia import Noticia
-from servicos.extracao.iwebscrapingbase import IWebScapingBase
+from src.models.noticia import Noticia
+from src.servicos.extracao.iwebscrapingbase import IWebScapingBase
 
 SWB = TypeVar('SWB')
 RTN = TypeVar('RTN')

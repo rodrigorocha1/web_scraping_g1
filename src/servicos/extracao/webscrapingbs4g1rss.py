@@ -1,5 +1,5 @@
 from typing import Generator, Optional, Dict, Any
-from servicos.extracao.webscrapingbasebs4 import WebScrapingBs4base
+from src.servicos.extracao.webscrapingbasebs4 import WebScrapingBs4base
 from bs4 import BeautifulSoup, Tag
 from datetime import datetime
 

@@ -1,10 +1,8 @@
 import hashlib
-
-
-from context.pipeline_context import PipelineContext
-from handler_cadeia_pipeline.handler import Handler
-from servicos.s_api.inoticia_api import INoticiaApi
-from utils.db_handler import DBHandler
+from src.context.pipeline_context import PipelineContext
+from src.handler_cadeia_pipeline.handler import Handler
+from src.servicos.s_api.inoticia_api import INoticiaApi
+from src.utils.db_handler import DBHandler
 import logging
 
 FORMATO = '%(asctime)s %(filename)s %(funcName)s - %(message)s'

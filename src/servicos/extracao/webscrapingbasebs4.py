@@ -2,13 +2,13 @@ import logging
 from typing import Optional, TypeVar
 from abc import abstractmethod, ABC
 import requests
-from servicos.extracao.iwebscrapingbase import IWebScapingBase
+from src.servicos.extracao.iwebscrapingbase import IWebScapingBase
 from bs4 import BeautifulSoup
-from tratamento.tratamento import Tratamento
+from src.tratamento.tratamento import Tratamento
 from requests.exceptions import HTTPError, ConnectionError, ConnectTimeout, ReadTimeout, TooManyRedirects, \
     RequestException
 
-from utils.db_handler import DBHandler
+from src.utils.db_handler import DBHandler
 
 U = TypeVar('U')
 

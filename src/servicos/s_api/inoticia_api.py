@@ -1,7 +1,7 @@
 from abc import abstractmethod, ABC
 from typing import Union, Tuple
 
-from models.noticia import Noticia
+from src.models.noticia import Noticia
 
 
 class INoticiaApi(ABC):

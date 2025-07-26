@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 from datetime import datetime
-from models.noticia import Noticia
+from src.models.noticia import Noticia
 import sys
 
 url = 'https://g1.globo.com/rss/g1/sp/ribeirao-preto-franca'

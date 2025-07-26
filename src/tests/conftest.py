@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime
-from models.noticia import Noticia
+from src.models.noticia import Noticia
 
 @pytest.fixture
 def noticia_exemplo():

@@ -1,6 +1,6 @@
 from typing import Optional, Generic, TypeVar, List, Tuple
-from models.noticia import Noticia
-from servicos.s_api.inoticia_api import INoticiaApi
+from src.models.noticia import Noticia
+from src.servicos.s_api.inoticia_api import INoticiaApi
 
 R1 = TypeVar('R1')
 

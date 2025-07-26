@@ -1,16 +1,16 @@
-from context.pipeline_context import PipelineContext
-from handler_cadeia_pipeline.obternoticiag1handler import ObterUrlG1Handler
-from handler_cadeia_pipeline.obterrsshandler import ObterRSSHandler
-from handler_cadeia_pipeline.processar_noticia_handler import ProcessarNoticiaHandler
-from handler_cadeia_pipeline.verificarnoticiag1cadastadrahandler import VerificarNoticiaCadastradaHandler
-from servicos.extracao.webscrapingbs4g1rss import WebScrapingBs4G1Rss
-from servicos.extracao.webscrapingsiteg1 import WebScrapingG1
-from servicos.manipulador.arquivo_docx import ArquivoDOCX
-from servicos.s_api.noticia_api import NoticiaAPI
-from handler_cadeia_pipeline.checarconexaohandler import ChecarConexaoHandler
+from src.context import PipelineContext
+from src.handler_cadeia_pipeline.obternoticiag1handler import ObterUrlG1Handler
+from src.handler_cadeia_pipeline import ObterRSSHandler
+from src.handler_cadeia_pipeline.processar_noticia_handler import ProcessarNoticiaHandler
+from src.handler_cadeia_pipeline.verificarnoticiag1cadastadrahandler import VerificarNoticiaCadastradaHandler
+from src.servicos.extracao.webscrapingbs4g1rss import WebScrapingBs4G1Rss
+from src.servicos.extracao.webscrapingsiteg1 import WebScrapingG1
+from src.servicos.manipulador.arquivo_docx import ArquivoDOCX
+from src.servicos.s_api.noticia_api import NoticiaAPI
+from src.handler_cadeia_pipeline.checarconexaohandler import ChecarConexaoHandler
 from bs4 import BeautifulSoup
 from typing import Generator, Dict, Any
-from models.noticia import Noticia
+from src.models.noticia import Noticia
 
 rss_service = WebScrapingBs4G1Rss(url="https://g1.globo.com/rss/g1/sp/ribeirao-preto-franca")
 g1_service = WebScrapingG1(url=None, parse="html.parser")

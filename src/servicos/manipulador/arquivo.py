@@ -2,7 +2,7 @@ import os
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from models.noticia import Noticia
+from src.models.noticia import Noticia
 
 
 class Arquivo(ABC):

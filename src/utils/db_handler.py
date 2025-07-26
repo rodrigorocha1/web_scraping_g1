@@ -29,7 +29,7 @@ class DBHandler(logging.Handler):
         super().__init__()
         self.__caminho_base = os.getcwd()
         self.__caminho_arquivo = os.path.join('sqlite:///', self.__caminho_base, 'logs.db')
-        self.conn = sqlite3.connect('/home/rodrigo/Documentos/projetos/web_scraping_g1/logs.db')
+        self.conn = sqlite3.connect('/logs.db')
         self.cursor = self.conn.cursor()
         self.loger = logging.getLogger(nome_pacote)
         self.__FORMATO_LOG = formato_log

@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Optional
-from context.pipeline_context import PipelineContext
-from utils.db_handler import DBHandler
+
+from src.context.pipeline_context import PipelineContext
+from src.utils.db_handler import DBHandler
 import logging
 
 FORMATO = '%(asctime)s %(filename)s %(funcName)s %(module)s  - %(message)s'
@@ -16,10 +17,24 @@ class Handler(ABC):
         self._next_handler: Optional['Handler'] = None
 
     def set_next(self, hander: "Handler") -> "Handler":
+        """
+        Metodo para executar a cadeia
+        :param hander: o Tipo de cadia
+        :type hander: Handler
+        :return: A Cadeia Ex: Conectar na api, acessar site
+        :rtype: Handler
+        """
         self._next_handler = hander
         return hander
 
     def handle(self, context: PipelineContext) -> None:
+        """
+        Método que vai representar o fluxo do etl
+        :param context: Recebe os contexto do pipeline
+        :type context: PipelineContext
+        :return: Nada
+        :rtype: None
+        """
         logger.info(f'{self.__class__.__name__} -> Iniciando web scraping')
         if self.executar_processo(context):
             logger.info(f'{self.__class__.__name__} -> Sucesso ao executar')
@@ -32,4 +47,11 @@ class Handler(ABC):
 
     @abstractmethod
     def executar_processo(self, context: PipelineContext) -> bool:
+        """
+        Método que vai representar o processo,ex: =Checar conexão na api
+        :param context: contexto do pipeline, váriaveis que seão passadas
+        :type context: PipelineContext
+        :return: Verdadeiro se o processo for execudado com sucesso Falso caso contrário
+        :rtype: bool
+        """
         pass

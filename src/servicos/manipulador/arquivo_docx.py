@@ -1,5 +1,4 @@
-from servicos.manipulador.arquivo import Arquivo
-from models.noticia import Noticia
+from src.servicos.manipulador.arquivo import Arquivo
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import RGBColor, Pt
