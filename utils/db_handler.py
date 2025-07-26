@@ -24,7 +24,6 @@ class ColorFormatter(logging.Formatter):
         return f"{log_color}{message}{Style.RESET_ALL}"
 
 
-
 class DBHandler(logging.Handler):
     def __init__(self, nome_pacote: str, formato_log: str, debug: LogLevel):
         super().__init__()
@@ -51,8 +50,10 @@ class DBHandler(logging.Handler):
         log_entry = self.format(record)
         self.cursor.execute(
             'INSERT INTO logs VALUES (?, ?, ?, ?, ?, ?, ?, ?, :)',
-            (timestamp, record.levelname, record.message, record.name, record.filename, record.funcName, record.lineno,
-             status_code, mensagem_de_excecao_tecnica)
+            (
+                timestamp, record.levelname, record.message, record.name, record.filename, record.funcName,
+                record.lineno,
+                status_code, mensagem_de_excecao_tecnica)
         )
 
         self.conn.commit()
