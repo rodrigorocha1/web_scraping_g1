@@ -17,6 +17,7 @@ db_handler = DBHandler(nome_pacote='WebScrapingBs4base', formato_log=FORMATO, de
 
 logger = db_handler.loger
 
+
 class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U], ABC):
 
     def __init__(self, url: Optional[str], parse: str):
@@ -67,7 +68,7 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U], ABC):
             response = requests.get(url=self._url)
             response.raise_for_status()
             conteudo_response = response.content
-            logger.info('Sucesso ao conectar na url', extra={'status_code': response.status_code})
+            logger.info(f'Sucesso ao conectar na url {self._url}', extra={'status_code': response.status_code})
             try:
                 soup = BeautifulSoup(conteudo_response, self._parse)
                 return soup
