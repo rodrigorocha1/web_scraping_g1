@@ -3,7 +3,7 @@ import json
 from types import SimpleNamespace
 from typing import Union, Tuple
 
-from src.config import Config
+from src.config.config import Config
 from src.models.noticia import Noticia
 from src.servicos.s_api.inoticia_api import INoticiaApi
 import requests
