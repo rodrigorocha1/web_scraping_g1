@@ -1,6 +1,5 @@
 import hashlib
 
-from click import Tuple
 
 from context.pipeline_context import PipelineContext
 from handler_cadeia_pipeline.handler import Handler
@@ -22,7 +21,8 @@ class VerificarNoticiaCadastradaHandler(Handler):
     def executar_processo(self, context: PipelineContext) -> bool:
         try:
             for url in context.noticia_g1:
-                if url[1].texto is not None:
+                if url[1].texto:
+
 
                     id_noticia = hashlib.md5(url[0].encode('utf-8')).hexdigest()
                     id_noticia_api = self._api_noticia.consultar_dados_id(id_noticia=id_noticia)

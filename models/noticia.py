@@ -10,6 +10,6 @@ class Noticia:
     id_noticia: str
     titulo: str
     subtitulo: str
-    texto: str
     autor: str
     data_hora: Optional[datetime]
+    texto: Optional[str] = None
