@@ -12,7 +12,7 @@ import logging
 from utils.db_handler import DBHandler
 
 FORMATO = '%(asctime)s %(filename)s %(funcName)s'
-db_handler = DBHandler(nome_pacote='ChecarConexaoHandler', formato_log=FORMATO, debug=logging.DEBUG)
+db_handler = DBHandler(nome_pacote='NoticiaAPI', formato_log=FORMATO, debug=logging.DEBUG)
 
 logger = db_handler.loger
 
