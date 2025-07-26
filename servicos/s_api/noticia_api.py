@@ -105,8 +105,14 @@ class NoticiaAPI(INoticiaApi):
         url = self.__URL_API + '/noticias'
         try:
             response = requests.post(url=url, headers=self.__header, data=payload)
-            print(response.status_code)
-            print(response.json())
+            logger.info(
+                msg='Sucesso ao cadastrar noticia',
+                extra={
+                    'url': url,
+                    'status_code': response.status_code,
+                    'requisicao': response.text
+                }
+            )
         except requests.RequestException as e:
             logger.error(
                 msg='Erro de requisição ',
