@@ -75,7 +75,8 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U], ABC):
                 f'Sucesso ao conectar ',
                 extra={
                     'url': self._url,
-                    'status_code': response.status_code
+                    'status_code': response.status_code,
+                    'requisicao' : response.content
                 }
             )
             try:

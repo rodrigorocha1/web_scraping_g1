@@ -44,7 +44,8 @@ class NoticiaAPI(INoticiaApi):
                     msg='Sucesso ao realizar login na API',
                     extra={
                         'status_code': response.status_code,
-                        'url': url
+                        'url': url,
+                        'requisicao' : response.text
                     }
                 )
                 return True
@@ -53,7 +54,8 @@ class NoticiaAPI(INoticiaApi):
                 extra={
                     'status_code': response.status_code,
                     'url': url,
-                    'mensagem_de_excecao_tecnica': response.json()
+                    'mensagem_de_excecao_tecnica': response.text,
+                    'requisicao': response.text
                 }
             )
             return False
@@ -61,7 +63,8 @@ class NoticiaAPI(INoticiaApi):
             logger.error(
                 msg='Erro inesperado',
                 extra={
-                    'mensagem_de_execao_tecnica': e
+                    'mensagem_de_execao_tecnica': e,
+                    'url': url
                 }
             )
             return False
@@ -114,7 +117,7 @@ class NoticiaAPI(INoticiaApi):
             exit()
         except Exception as e:
             logger.warning(
-                msg='Erro de requisição ',
+                msg='Erro inesperado de requisição ',
                 extra={
                     'mensagem_de_execao_tecnica': e
                 }
