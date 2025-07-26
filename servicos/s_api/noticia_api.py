@@ -40,11 +40,26 @@ class NoticiaAPI(INoticiaApi):
         response = requests.get(url, headers=self.__header, timeout=10)
         try:
             if response.status_code == 200:
+                logger.info(
+                    msg='Sucesso ao realizar login na API',
+                    extra={
+                        'status_code': response.status_code,
+                        'url': url
+                    }
+                )
                 return True
+            logger.error(
+                msg='Erro ao realizar login na API',
+                extra={
+                    'status_code': response.status_code,
+                    'url': url,
+                    'mensagem_de_excecao_tecnica': response.json()
+                }
+            )
             return False
         except Exception as e:
             logger.error(
-                mensagem='Erro inesperado',
+                msg='Erro inesperado',
                 extra={
                     'mensagem_de_execao_tecnica': e
                 }
