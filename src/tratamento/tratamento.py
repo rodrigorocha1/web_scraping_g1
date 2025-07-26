@@ -30,6 +30,7 @@ class Tratamento:
             r'Veja mais notícias da região no g1 Ribeirão Preto e Franca',
             r'VÍDEOS: Tudo sobre Ribeirão Preto, Franca e região',
             r'Veja mais notícias da região no g1 Ribeirão e Franca',
+            r'LEIA\s+TAMBÉM:?'
 
         ]
 

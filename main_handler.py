@@ -17,7 +17,7 @@ g1_service = WebScrapingG1(url=None, parse="html.parser")
 arquivo = ArquivoDOCX()
 noticia_api = NoticiaAPI()
 
-contexto = PipelineContext[Generator[Dict[str, Any], None, None]](api=NoticiaAPI())
+contexto = PipelineContext[Generator[Dict[str, Any], None, None]]()
 
 p1 = ChecarConexaoHandler(api_noticia=noticia_api)
 
