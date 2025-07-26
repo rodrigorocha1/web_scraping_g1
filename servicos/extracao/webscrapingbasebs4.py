@@ -76,7 +76,7 @@ class WebScrapingBs4base(IWebScapingBase[BeautifulSoup, U], ABC):
                 extra={
                     'url': self._url,
                     'status_code': response.status_code,
-                    'requisicao' : conteudo_response
+                    'requisicao' : response.text
                 }
             )
             try:
