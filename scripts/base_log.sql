@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS logs (
+E TABLE IF NOT EXISTS logs (
     timestamp TEXT NOT NULL,
     level TEXT NOT NULL,
     message TEXT NOT NULL,
@@ -21,6 +21,5 @@ FROM logs
 ORDER By 1 DESC;
 
 
-DROP TABLE Logs 
 
 
